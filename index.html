@@ -30,97 +30,133 @@
     #note-editor:empty::before {
       content: '메모 내용을 입력하세요...';
       color: #9ca3af;
-      font-style: italic;
+      pointer-events: none;
     }
 
-    /* 링크 스타일 - 에디터 내에서 링크가 시각적으로 구분되도록 */
+    /* 링크 스타일 */
     #note-editor a {
       color: #2563eb !important;
       text-decoration: underline !important;
       cursor: pointer !important;
-      transition: all 0.2s ease;
     }
-
+    
     #note-editor a:hover {
       color: #1d4ed8 !important;
-      text-decoration: underline !important;
-      background-color: rgba(37, 99, 235, 0.1) !important;
-      padding: 1px 2px;
-      border-radius: 2px;
     }
 
-    /* 링크가 선택되었을 때 스타일 */
-    #note-editor a:focus {
-      outline: 2px solid #2563eb;
-      outline-offset: 1px;
-      border-radius: 2px;
+    /* 인용구 스타일 */
+    #note-editor blockquote {
+      border-left: 4px solid #6b7280 !important;
+      background-color: #f9fafb !important;
+      padding: 12px 16px !important;
+      margin: 8px 0 !important;
+      font-style: italic !important;
     }
 
-    /* Rich text editor styles */
-    #note-editor {
-      min-height: calc(100vh - 120px);
-      max-height: calc(100vh - 120px);
-      overflow-y: auto;
-      line-height: 1.6;
-      font-size: 16px;
+    /* 리스트 스타일 개선 */
+    #note-editor ul,
+    #note-editor ol {
+      padding-left: 24px !important;
+      margin: 8px 0 !important;
     }
 
-    /* 툴바 완전 고정 */
-    #toolbar {
+    #note-editor ul li {
+      list-style-type: disc !important;
+      margin: 4px 0 !important;
+    }
+
+    #note-editor ol li {
+      list-style-type: decimal !important;
+      margin: 4px 0 !important;
+    }
+
+    /* 중첩 목록 스타일 - 3단계까지 */
+    #note-editor ul ul li {
+      list-style-type: circle !important;
+    }
+
+    #note-editor ul ul ul li {
+      list-style-type: square !important;
+    }
+
+    #note-editor ol ol li {
+      list-style-type: lower-alpha !important;
+    }
+
+    #note-editor ol ol ol li {
+      list-style-type: lower-roman !important;
+    }
+
+    /* 중첩 목록에서 부모 마커 숨기기 */
+    #note-editor li > ul,
+    #note-editor li > ol {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* 툴바 고정 스타일 */
+    .toolbar-fixed {
       position: sticky !important;
       top: 0 !important;
       z-index: 100 !important;
-      backdrop-filter: blur(10px);
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-bottom: 1px solid #e2e8f0;
+      backdrop-filter: blur(10px) !important;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%) !important;
+      border-bottom: 1px solid rgba(0,0,0,0.1) !important;
     }
 
     /* 버튼 3D 효과 */
-    .tool-btn {
-      background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
+    .btn-3d {
+      background: linear-gradient(145deg, #ffffff, #f1f5f9) !important;
+      box-shadow: 
+        0 2px 4px rgba(0,0,0,0.1),
+        0 1px 2px rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.8) !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      position: relative !important;
+      overflow: hidden !important;
     }
 
-    .tool-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    .btn-3d:hover {
+      background: linear-gradient(145deg, #f8fafc, #e2e8f0) !important;
+      box-shadow: 
+        0 4px 8px rgba(0,0,0,0.15),
+        0 2px 4px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.9) !important;
+      transform: translateY(-1px) !important;
     }
 
-    .tool-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    .btn-3d:active {
+      background: linear-gradient(145deg, #e2e8f0, #cbd5e1) !important;
+      box-shadow: 
+        0 1px 2px rgba(0,0,0,0.1),
+        inset 0 2px 4px rgba(0,0,0,0.1) !important;
+      transform: translateY(0) !important;
     }
 
     /* 링크 버튼 특별 스타일 */
-    .tool-btn[data-cmd="link"] {
-      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-      border-color: #93c5fd;
+    .btn-link {
+      background: linear-gradient(145deg, #dbeafe, #bfdbfe) !important;
+      color: #1e40af !important;
     }
 
-    .tool-btn[data-cmd="link"]:hover {
-      background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 100%);
-      transform: translateY(-1px);
+    .btn-link:hover {
+      background: linear-gradient(145deg, #bfdbfe, #93c5fd) !important;
+      color: #1e3a8a !important;
     }
 
     /* Shimmer 효과 */
-    .tool-btn::before {
+    .btn-3d::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
       transition: left 0.5s;
     }
 
-    .tool-btn:hover::before {
+    .btn-3d:hover::before {
       left: 100%;
     }
 
@@ -128,235 +164,228 @@
     .toolbar-divider {
       width: 1px;
       height: 24px;
-      background: linear-gradient(to bottom, transparent, #cbd5e1, transparent);
+      background: linear-gradient(to bottom, transparent, #d1d5db, transparent);
       margin: 0 4px;
     }
 
-    /* 리스트 스타일 개선 */
-    #note-editor ul, #note-editor ol {
-      margin: 8px 0;
-      padding-left: 24px;
-    }
-
-    #note-editor ul li, #note-editor ol li {
-      margin: 4px 0;
-    }
-
-    /* 중첩 리스트 스타일 */
-    #note-editor ul ul, #note-editor ol ol, #note-editor ul ol, #note-editor ol ul {
-      margin: 4px 0;
-      padding-left: 20px;
-    }
-
-    /* 1단계 들여쓰기 */
-    #note-editor li > ul > li::marker,
-    #note-editor li > ol > li::marker {
-      content: '';
-    }
-
-    #note-editor li > ul > li {
-      list-style-type: circle;
-    }
-
-    #note-editor li > ol > li {
-      list-style-type: lower-alpha;
-    }
-
-    /* 2단계 들여쓰기 */
-    #note-editor li > ul > li > ul > li,
-    #note-editor li > ol > li > ul > li {
-      list-style-type: square;
-    }
-
-    #note-editor li > ul > li > ol > li,
-    #note-editor li > ol > li > ol > li {
-      list-style-type: lower-roman;
-    }
-
-    /* 부모 li에서 마커 숨기기 */
-    #note-editor li:has(> ul),
-    #note-editor li:has(> ol) {
-      list-style: none !important;
-    }
-
-    /* 인용구 스타일 */
-    #note-editor blockquote {
-      border-left: 4px solid #6b7280;
-      margin: 16px 0;
-      padding: 8px 16px;
-      background-color: #f9fafb;
-      font-style: italic;
-      color: #374151;
-    }
-
-    /* 구분선 스타일 */
-    #note-editor hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #9ca3af, transparent);
-      margin: 16px 0;
-    }
-
     /* 커스텀 스크롤바 */
-    #note-editor::-webkit-scrollbar {
-      width: 6px;
+    ::-webkit-scrollbar {
+      width: 8px;
     }
 
-    #note-editor::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
       background: #f1f5f9;
-      border-radius: 3px;
     }
 
-    #note-editor::-webkit-scrollbar-thumb {
+    ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
-      border-radius: 3px;
+      border-radius: 4px;
     }
 
-    #note-editor::-webkit-scrollbar-thumb:hover {
+    ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
 
-    /* 모달 애니메이션 */
-    .modal-backdrop {
-      backdrop-filter: blur(4px);
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .modal-content {
-      animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideIn {
-      from { 
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
+    /* 모바일 최적화 */
+    @media (max-width: 768px) {
+      /* 사이드바 숨기기 */
+      .sidebar {
+        display: none !important;
       }
-      to { 
-        opacity: 1;
-        transform: translateY(0) scale(1);
+      
+      /* 메인 영역 전체 너비 */
+      .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+      }
+      
+      /* 툴바 버튼 크기 증가 */
+      .toolbar-btn {
+        min-width: 44px !important;
+        min-height: 44px !important;
+        font-size: 16px !important;
+      }
+      
+      /* 툴바 패딩 조정 */
+      .toolbar {
+        padding: 8px 12px !important;
+        gap: 8px !important;
+      }
+      
+      /* 에디터 패딩 증가 */
+      #note-editor {
+        padding: 16px !important;
+        font-size: 16px !important;
+        line-height: 1.6 !important;
+      }
+      
+      /* 모달 크기 조정 */
+      .modal-content {
+        margin: 16px !important;
+        max-width: calc(100vw - 32px) !important;
+      }
+      
+      /* 터치 영역 확대 */
+      button, .btn-3d {
+        min-height: 44px !important;
+        padding: 12px 16px !important;
+      }
+      
+      /* 새 메모 버튼 모바일 최적화 */
+      #new-note {
+        width: 100% !important;
+        margin-bottom: 16px !important;
+        font-size: 16px !important;
+        padding: 16px !important;
+      }
+    }
+
+    /* 태블릿 최적화 */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sidebar {
+        width: 200px !important;
+      }
+      
+      .main-content {
+        margin-left: 200px !important;
+      }
+      
+      .toolbar-btn {
+        min-width: 40px !important;
+        min-height: 40px !important;
+      }
+    }
+
+    /* 데스크톱 최적화 */
+    @media (min-width: 1025px) {
+      .sidebar {
+        width: 280px !important;
+      }
+      
+      .main-content {
+        margin-left: 280px !important;
       }
     }
   </style>
 </head>
 
 <body class="font-sans">
-  <div class="flex h-screen bg-gray-50">
-    <!-- 사이드바 -->
-    <div class="w-80 bg-white border-r border-gray-200 flex flex-col">
-      <!-- 헤더 -->
-      <div class="p-4 border-b border-gray-200">
-        <h1 class="text-xl font-bold text-gray-900 mb-4">아름다운 메모장</h1>
-        <button
-          id="new-note"
-          class="w-full bg-black text-white py-2 px-4 rounded-lg hover:bg-gray-800 transition-colors font-medium"
-        >
-          + 새 메모
-        </button>
-      </div>
+  <!-- 사이드바 -->
+  <div class="sidebar fixed left-0 top-0 h-full bg-white border-r border-gray-200 p-4 overflow-y-auto">
+    <!-- 새 메모 버튼 -->
+    <button
+      id="new-note"
+      class="w-full bg-black text-white px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors mb-4 font-medium"
+    >
+      + 새 메모
+    </button>
 
-      <!-- 노트 목록 -->
-      <div class="flex-1 overflow-y-auto p-4">
-        <div id="note-list" class="space-y-2"></div>
-      </div>
+    <!-- 메모 목록 -->
+    <div id="note-list" class="space-y-2">
+      <!-- 메모 항목들이 여기에 동적으로 추가됩니다 -->
+    </div>
+  </div>
+
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content min-h-screen bg-gray-50">
+    <!-- 툴바 -->
+    <div class="toolbar toolbar-fixed p-4 flex flex-wrap items-center gap-2">
+      <!-- 텍스트 스타일 -->
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm font-bold" data-cmd="bold" title="굵게 (Ctrl+B)">
+        B
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm italic" data-cmd="italic" title="기울임 (Ctrl+I)">
+        I
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm underline" data-cmd="underline" title="밑줄 (Ctrl+U)">
+        U
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm line-through" data-cmd="strikeThrough" title="취소선">
+        S
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      
+      <!-- 리스트 -->
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm" data-cmd="insertUnorderedList" title="불릿 리스트">
+        •
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm" data-cmd="insertOrderedList" title="번호 리스트">
+        1.
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      
+      <!-- 블록 요소 -->
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm" data-cmd="blockquote" title="인용구">
+        "
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm" data-cmd="insertHorizontalRule" title="구분선">
+        —
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      
+      <!-- 링크 -->
+      <button class="toolbar-btn btn-3d btn-link px-3 py-2 rounded text-sm" data-cmd="link" title="링크 삽입">
+        🔗
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-sm" data-cmd="unlink" title="링크 제거">
+        ⛓️‍💥
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      
+      <!-- 글자 크기 -->
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-xs" data-cmd="increaseFontSize" title="글자 크게">
+        A+
+      </button>
+      <button class="toolbar-btn btn-3d px-3 py-2 rounded text-xs" data-cmd="decreaseFontSize" title="글자 작게">
+        A-
+      </button>
     </div>
 
-    <!-- 메인 에디터 영역 -->
-    <div class="flex-1 flex flex-col">
-      <!-- 툴바 -->
-      <div id="toolbar" class="p-4 bg-white border-b border-gray-200">
-        <div class="flex items-center gap-2 flex-wrap">
-          <!-- 텍스트 서식 -->
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm font-bold" data-cmd="bold" title="볼드 (Ctrl+B)">B</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm italic" data-cmd="italic" title="이탤릭 (Ctrl+I)">I</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm underline" data-cmd="underline" title="밑줄 (Ctrl+U)">U</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm line-through" data-cmd="strikethrough" title="취소선">S</button>
-          
-          <div class="toolbar-divider"></div>
-          
-          <!-- 리스트 -->
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="insertUnorderedList" title="불릿 리스트">•</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="insertOrderedList" title="번호 리스트">1.</button>
-          
-          <div class="toolbar-divider"></div>
-          
-          <!-- 블록 요소 -->
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="blockquote" title="인용구">"</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="hr" title="구분선">—</button>
-          
-          <div class="toolbar-divider"></div>
-          
-          <!-- 링크 -->
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="link" title="링크 삽입">🔗</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-sm" data-cmd="unlink" title="링크 해제">⛓️‍💥</button>
-          
-          <div class="toolbar-divider"></div>
-          
-          <!-- 글자 크기 -->
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-xs" data-cmd="increaseSize" title="크게">A+</button>
-          <button class="tool-btn w-8 h-8 rounded flex items-center justify-center text-xs" data-cmd="decreaseSize" title="작게">A-</button>
-        </div>
-      </div>
-
-      <!-- 에디터 -->
-      <div class="flex-1 p-4">
-        <div
-          id="note-editor"
-          contenteditable="true"
-          class="w-full h-full p-4 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-          spellcheck="false"
-        ></div>
-      </div>
+    <!-- 에디터 영역 -->
+    <div class="p-4">
+      <div
+        id="note-editor"
+        contenteditable="true"
+        class="w-full h-96 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white resize-none overflow-y-auto"
+        style="height: calc(100vh - 120px);"
+        placeholder="메모 내용을 입력하세요..."
+      ></div>
     </div>
   </div>
 
   <!-- 텍스트 입력 모달 -->
-  <div id="text-input-modal" class="hidden fixed inset-0 z-50">
-    <!-- 배경 오버레이 -->
-    <div id="modal-overlay" class="modal-backdrop absolute inset-0 bg-black bg-opacity-50"></div>
-    
-    <!-- 모달 컨텐츠 -->
-    <div class="modal-content relative z-10 flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-        <!-- 모달 헤더 -->
-        <div class="px-6 py-4 border-b border-gray-200">
-          <h3 id="modal-title" class="text-lg font-semibold text-gray-900">텍스트 입력</h3>
-        </div>
-        
-        <!-- 모달 바디 -->
-        <div class="px-6 py-4">
-          <label id="modal-label" class="block text-sm font-medium text-gray-700 mb-2">
-            텍스트를 입력하세요:
-          </label>
-          <input
-            id="modal-input"
-            type="text"
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="여기에 입력하세요..."
-          />
-        </div>
-        
-        <!-- 모달 푸터 -->
-        <div class="px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
+  <div id="text-input-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 backdrop-blur-sm">
+    <div class="modal-content bg-white rounded-lg shadow-xl max-w-md w-full mx-4 transform transition-all duration-300 scale-95 opacity-0">
+      <div class="p-6">
+        <h3 id="modal-title" class="text-lg font-semibold text-gray-900 mb-4">제목</h3>
+        <label id="modal-label" class="block text-sm font-medium text-gray-700 mb-2">라벨</label>
+        <input
+          id="modal-input"
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="입력하세요..."
+        />
+        <div class="flex justify-end gap-3 mt-6">
           <button
             id="modal-cancel"
-            class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
+            class="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
           >
             취소
           </button>
           <button
             id="modal-confirm"
-            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition-colors"
+            class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             확인
           </button>
         </div>
       </div>
     </div>
+    <div id="modal-overlay" class="absolute inset-0"></div>
   </div>
 
   <script src="app.js"></script>
