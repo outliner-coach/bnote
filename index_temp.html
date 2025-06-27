@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -28,7 +28,7 @@
 
     /* Rich-text editor placeholder */
     #note-editor:empty::before {
-      content: '메모 내용을 입력하세요...';
+      content: '메모 ?�용???�력?�세??..';
       color: #9ca3af;
       font-style: italic;
       pointer-events: none;
@@ -143,7 +143,7 @@
       list-style-type: decimal !important;
     }
 
-    /* Nested list styling - 중첩 목록에서 부모 마커 숨기기 */
+    /* Nested list styling - 중첩 목록?�서 부�?마커 ?�기�?*/
     #note-editor ul ul, #note-editor ol ol, #note-editor ul ol, #note-editor ol ul {
       margin: 0 !important;
     }
@@ -168,52 +168,7 @@
     @media (max-width: 768px) {
       /* Mobile sidebar - initially hidden */
       .sidebar {
-        position: fixed !important;
-        left: -320px !important;
-        top: 120px !important;
-        height: calc(100vh - 120px) !important;
-        width: 280px !important;
-        z-index: 30 !important;
-        transition: left 0.3s ease !important;
-        background-color: white !important;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
-      }
-      
-      .sidebar.open {
-        left: 0 !important;
-      }
-      
-      /* Mobile menu button */
-      .mobile-menu-btn {
-        display: block !important;
-        position: fixed !important;
-        top: 130px !important;
-        left: 10px !important;
-        z-index: 40 !important;
-        background: #000 !important;
-        color: white !important;
-        border: none !important;
-        width: 40px !important;
-        height: 40px !important;
-        border-radius: 8px !important;
-        font-size: 18px !important;
-        cursor: pointer !important;
-      }
-      
-      /* Overlay for mobile sidebar */
-      .mobile-overlay {
         display: none !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        background: rgba(0,0,0,0.5) !important;
-        z-index: 25 !important;
-      }
-      
-      .mobile-overlay.active {
-        display: block !important;
       }
       
       /* Full width editor on mobile */
@@ -253,11 +208,6 @@
         margin-top: 120px !important;
         height: calc(100vh - 120px) !important;
       }
-    }
-
-    /* Desktop menu button - hidden */
-    .mobile-menu-btn {
-      display: none;
     }
 
     /* Weather ASCII Art Styles */
@@ -477,7 +427,7 @@
 </head>
 
 <body class="h-screen overflow-hidden">
-  <!-- 제목 헤더 -->
+  <!-- ?�목 ?�더 -->
   <header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 flex items-center justify-between relative z-20" style="height: 120px;">
     <!-- Weather ASCII Art Container -->
     <div id="weather-container" class="weather-container"></div>
@@ -495,71 +445,65 @@
       <button 
         id="weather-btn" 
         class="weather-btn h-10 w-10 rounded-lg flex items-center justify-center text-lg"
-        title="날씨 효과"
+        title="?�씨 ?�과"
       >
-        
+        ?�️
       </button>
     </div>
   </header>
 
-  <!-- 모바일 메뉴 버튼 -->
-  <button id="mobile-menu-btn" class="mobile-menu-btn"></button>
-
-  <!-- 모바일 오버레이 -->
-  <div id="mobile-overlay" class="mobile-overlay"></div>
-
   <div class="flex h-full" style="margin-top: 120px; height: calc(100vh - 120px);">
-    <!-- 사이드바 (모바일에서 슬라이드) -->
-    <div id="sidebar" class="sidebar w-80 bg-white border-r border-gray-200 flex flex-col">
-      <!-- 새 메모 버튼 -->
+    <!-- ?�이?�바 (모바?�에???��?) -->
+    <div class="sidebar w-80 bg-white border-r border-gray-200 flex flex-col">
+      <!-- ??메모 버튼 -->
       <div class="p-4 border-b border-gray-200">
         <button
           id="new-note"
           class="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors font-medium"
         >
-          + 새 메모
+          + ??메모
         </button>
       </div>
 
       <!-- 메모 목록 -->
       <div class="flex-1 overflow-y-auto">
         <ul id="note-list" class="divide-y divide-gray-100">
-          <!-- 메모들이 여기에 동적으로 추가됩니다 -->
+          <!-- 메모?�이 ?�기???�적?�로 추�??�니??-->
         </ul>
       </div>
     </div>
 
-    <!-- 메인 콘텐츠 -->
+    <!-- 메인 콘텐�?-->
     <div class="main-content flex-1 flex flex-col">
-      <!-- 툴바 -->
+      <!-- ?�바 -->
       <div id="toolbar" class="toolbar flex items-center gap-1 p-2 bg-white border-b border-gray-200">
         <button data-cmd="bold" class="h-10 w-10 rounded-lg flex items-center justify-center font-bold" title="볼드">B</button>
-        <button data-cmd="italic" class="h-10 w-10 rounded-lg flex items-center justify-center italic" title="이탤릭">I</button>
+        <button data-cmd="italic" class="h-10 w-10 rounded-lg flex items-center justify-center italic" title="?�탤�?>I</button>
         <button data-cmd="underline" class="h-10 w-10 rounded-lg flex items-center justify-center" title="밑줄">U</button>
-        <button data-cmd="strikethrough" class="h-10 w-10 rounded-lg flex items-center justify-center" title="취소선">S</button>
+        <button data-cmd="strikethrough" class="h-10 w-10 rounded-lg flex items-center justify-center" title="취소??>S</button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="insertUnorderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="불릿 리스트"></button>
-        <button data-cmd="insertOrderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="번호 리스트">1.</button>
+        <button data-cmd="insertUnorderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="불릿 리스??>??/button>
+        <button data-cmd="insertOrderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="번호 리스??>1.</button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="blockquote" class="h-10 w-10 rounded-lg flex items-center justify-center" title="인용구">"</button>
-        <button data-cmd="insertHorizontalRule" class="h-10 w-10 rounded-lg flex items-center justify-center" title="구분선"></button>
+        <button data-cmd="blockquote" class="h-10 w-10 rounded-lg flex items-center justify-center" title="?�용�?>"</button>
+        <button data-cmd="insertHorizontalRule" class="h-10 w-10 rounded-lg flex items-center justify-center" title="구분??>??/button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="link" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크"></button>
-        <button data-cmd="unlink" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크 해제"></button>
+        <button data-cmd="link" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크">?��</button>
+        <button data-cmd="unlink" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크 ?�제">?�️?��?/button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="fontSize-large" class="h-10 w-10 rounded-lg flex items-center justify-center text-sm" title="크게">A+</button>
-        <button data-cmd="fontSize-small" class="h-10 w-10 rounded-lg flex items-center justify-center text-xs" title="작게">A-</button>
+        <button data-cmd="fontSize-large" class="h-10 w-10 rounded-lg flex items-center justify-center text-sm" title="?�게">A+</button>
+        <button data-cmd="fontSize-small" class="h-10 w-10 rounded-lg flex items-center justify-center text-xs" title="?�게">A-</button>
       </div>
 
-      <!-- 에디터 -->
+      <!-- ?�디??-->
       <div class="flex-1 p-4 bg-white">
         <div
           id="note-editor"
@@ -571,22 +515,22 @@
     </div>
   </div>
 
-  <!-- 텍스트 입력 모달 -->
+  <!-- ?�스???�력 모달 -->
   <div id="text-input-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
     <div class="modal-content bg-white rounded-lg p-6 w-96 max-w-md mx-4 transform transition-all duration-200 scale-95">
-      <h3 id="modal-title" class="text-lg font-semibold mb-4 text-gray-800">텍스트 입력</h3>
+      <h3 id="modal-title" class="text-lg font-semibold mb-4 text-gray-800">?�스???�력</h3>
       <div class="mb-4">
-        <label id="modal-label" class="block text-sm font-medium text-gray-700 mb-2">내용을 입력하세요:</label>
+        <label id="modal-label" class="block text-sm font-medium text-gray-700 mb-2">?�용???�력?�세??</label>
         <input 
           type="text" 
           id="modal-input" 
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="여기에 입력하세요..."
+          placeholder="?�기???�력?�세??.."
         />
       </div>
       <div class="flex justify-end gap-2">
         <button id="modal-cancel" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">취소</button>
-        <button id="modal-confirm" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">확인</button>
+        <button id="modal-confirm" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">?�인</button>
       </div>
     </div>
     <div id="modal-overlay" class="absolute inset-0"></div>
@@ -594,4 +538,4 @@
 
   <script src="app.js"></script>
 </body>
-</html>
+</html> 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -166,54 +166,9 @@
 
     /* Mobile optimizations */
     @media (max-width: 768px) {
-      /* Mobile sidebar - initially hidden */
+      /* Hide sidebar on mobile */
       .sidebar {
-        position: fixed !important;
-        left: -320px !important;
-        top: 120px !important;
-        height: calc(100vh - 120px) !important;
-        width: 280px !important;
-        z-index: 30 !important;
-        transition: left 0.3s ease !important;
-        background-color: white !important;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1) !important;
-      }
-      
-      .sidebar.open {
-        left: 0 !important;
-      }
-      
-      /* Mobile menu button */
-      .mobile-menu-btn {
-        display: block !important;
-        position: fixed !important;
-        top: 130px !important;
-        left: 10px !important;
-        z-index: 40 !important;
-        background: #000 !important;
-        color: white !important;
-        border: none !important;
-        width: 40px !important;
-        height: 40px !important;
-        border-radius: 8px !important;
-        font-size: 18px !important;
-        cursor: pointer !important;
-      }
-      
-      /* Overlay for mobile sidebar */
-      .mobile-overlay {
         display: none !important;
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        background: rgba(0,0,0,0.5) !important;
-        z-index: 25 !important;
-      }
-      
-      .mobile-overlay.active {
-        display: block !important;
       }
       
       /* Full width editor on mobile */
@@ -253,11 +208,6 @@
         margin-top: 120px !important;
         height: calc(100vh - 120px) !important;
       }
-    }
-
-    /* Desktop menu button - hidden */
-    .mobile-menu-btn {
-      display: none;
     }
 
     /* Weather ASCII Art Styles */
@@ -497,20 +447,14 @@
         class="weather-btn h-10 w-10 rounded-lg flex items-center justify-center text-lg"
         title="날씨 효과"
       >
-        
+        ☁️
       </button>
     </div>
   </header>
 
-  <!-- 모바일 메뉴 버튼 -->
-  <button id="mobile-menu-btn" class="mobile-menu-btn"></button>
-
-  <!-- 모바일 오버레이 -->
-  <div id="mobile-overlay" class="mobile-overlay"></div>
-
   <div class="flex h-full" style="margin-top: 120px; height: calc(100vh - 120px);">
-    <!-- 사이드바 (모바일에서 슬라이드) -->
-    <div id="sidebar" class="sidebar w-80 bg-white border-r border-gray-200 flex flex-col">
+    <!-- 사이드바 (모바일에서 숨김) -->
+    <div class="sidebar w-80 bg-white border-r border-gray-200 flex flex-col">
       <!-- 새 메모 버튼 -->
       <div class="p-4 border-b border-gray-200">
         <button
@@ -540,18 +484,18 @@
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="insertUnorderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="불릿 리스트"></button>
+        <button data-cmd="insertUnorderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="불릿 리스트">•</button>
         <button data-cmd="insertOrderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="번호 리스트">1.</button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
         <button data-cmd="blockquote" class="h-10 w-10 rounded-lg flex items-center justify-center" title="인용구">"</button>
-        <button data-cmd="insertHorizontalRule" class="h-10 w-10 rounded-lg flex items-center justify-center" title="구분선"></button>
+        <button data-cmd="insertHorizontalRule" class="h-10 w-10 rounded-lg flex items-center justify-center" title="구분선">—</button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
-        <button data-cmd="link" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크"></button>
-        <button data-cmd="unlink" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크 해제"></button>
+        <button data-cmd="link" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크">🔗</button>
+        <button data-cmd="unlink" class="h-10 w-10 rounded-lg flex items-center justify-center" title="링크 해제">⛓️‍💥</button>
         
         <div class="w-px h-6 bg-gray-300 mx-1"></div>
         
@@ -594,4 +538,4 @@
 
   <script src="app.js"></script>
 </body>
-</html>
+</html> 
