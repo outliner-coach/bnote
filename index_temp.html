@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B note</title>
+  <!-- Tailwind CSS CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <!-- Custom overrides must load after Tailwind -->
+  <style>
+    :root {
+      /* Accent tone (charcoal) */
+      --accent: #1f1f1f;
+    }
+    /* Enforce monochrome palette */
+    body {
+      color: #000 !important;
+      background-color: #fafafa !important;
+    }
+    /* Hide mobile status bar placeholders (if any) */
+    header::before,
+    header::after {
+      display: none !important;
+    }
+
+    /* Rich-text editor placeholder */
+    #note-editor:empty::before {
+      content: 'Î©îÎ™® ?¥Ïö©???ÖÎ†•?òÏÑ∏??..';
+      color: #9ca3af;
+      font-style: italic;
+      pointer-events: none;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a1a1a1;
+    }
+
+    /* Toolbar styling */
+    .toolbar {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 100 !important;
+      backdrop-filter: blur(10px) !important;
+      background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,248,248,0.95)) !important;
+      border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+    }
+
+    /* Button styling */
+    .toolbar button {
+      background: linear-gradient(135deg, #ffffff, #f8f8f8) !important;
+      border: 1px solid rgba(0,0,0,0.1) !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .toolbar button:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+      background: linear-gradient(135deg, #f8f8f8, #f0f0f0) !important;
+    }
+
+    .toolbar button:hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      animation: shimmer 0.6s ease-out;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .toolbar button:active {
+      transform: translateY(0) !important;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+      background: linear-gradient(135deg, #e8e8e8, #d8d8d8) !important;
+    }
+
+    /* Special link button */
+    .toolbar button[data-cmd="link"] {
+      background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+      color: white !important;
+      border-color: #1d4ed8 !important;
+    }
+
+    .toolbar button[data-cmd="link"]:hover {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    }
+
+    /* Link styling in editor */
+    #note-editor a {
+      color: #2563eb !important;
+      text-decoration: underline !important;
+      cursor: pointer !important;
+    }
+
+    #note-editor a:hover {
+      color: #1d4ed8 !important;
+    }
+
+    /* Blockquote styling */
+    #note-editor blockquote {
+      border-left: 4px solid #d1d5db !important;
+      background-color: #f9fafb !important;
+      padding: 12px 16px !important;
+      margin: 8px 0 !important;
+      font-style: italic !important;
+    }
+
+    /* List styling */
+    #note-editor ul, #note-editor ol {
+      padding-left: 24px !important;
+      margin: 8px 0 !important;
+    }
+
+    #note-editor ul li {
+      list-style-type: disc !important;
+    }
+
+    #note-editor ol li {
+      list-style-type: decimal !important;
+    }
+
+    /* Nested list styling - Ï§ëÏ≤© Î™©Î°ù?êÏÑú Î∂ÄÎ™?ÎßàÏª§ ?®Í∏∞Í∏?*/
+    #note-editor ul ul, #note-editor ol ol, #note-editor ul ol, #note-editor ol ul {
+      margin: 0 !important;
+    }
+
+    #note-editor ul ul li {
+      list-style-type: circle !important;
+    }
+
+    #note-editor ul ul ul li {
+      list-style-type: square !important;
+    }
+
+    #note-editor ol ol li {
+      list-style-type: lower-alpha !important;
+    }
+
+    #note-editor ol ol ol li {
+      list-style-type: lower-roman !important;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      /* Mobile sidebar - initially hidden */
+      .sidebar {
+        display: none !important;
+      }
+      
+      /* Full width editor on mobile */
+      .main-content {
+        width: 100% !important;
+        margin-left: 0 !important;
+      }
+      
+      /* Larger buttons on mobile */
+      .toolbar button {
+        height: 48px !important;
+        width: 48px !important;
+        font-size: 16px !important;
+      }
+      
+      /* Scrollable toolbar on mobile */
+      .toolbar {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+      }
+      
+      /* Mobile editor adjustments */
+      #note-editor {
+        font-size: 18px !important;
+        line-height: 1.6 !important;
+        height: calc(100vh - 240px) !important;
+      }
+      
+      /* Mobile modal adjustments */
+      .modal-content {
+        width: 90% !important;
+        max-width: 400px !important;
+      }
+      
+      /* Mobile content adjustment */
+      .flex.h-full {
+        margin-top: 120px !important;
+        height: calc(100vh - 120px) !important;
+      }
+    }
+
+    /* Weather ASCII Art Styles */
+    .weather-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .ascii-art {
+      position: absolute;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.2;
+      color: #333;
+      white-space: pre;
+      opacity: 0.8;
+      font-weight: bold;
+    }
+
+    /* Rain animation */
+    .rain {
+      animation: fall 2s linear infinite;
+      color: #4a90e2;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-20px); opacity: 1; }
+      100% { transform: translateY(140px); opacity: 0.3; }
+    }
+
+    /* Snow animation */
+    .snow {
+      animation: snowfall 4s linear infinite;
+      color: #87ceeb;
+      font-size: 16px;
+    }
+
+    @keyframes snowfall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(140px) rotate(360deg); opacity: 0.3; }
+    }
+
+    /* Cloud animation */
+    .cloud {
+      animation: cloudFlow 12s linear infinite;
+      color: #708090;
+      font-size: 10px;
+      line-height: 1;
+    }
+
+    @keyframes cloudFlow {
+      0% { transform: translateX(-150px); }
+      100% { transform: translateX(calc(100vw + 50px)); }
+    }
+
+    /* Sun rays animation */
+    .sun-ray {
+      animation: rayShine 4s ease-in-out infinite;
+      color: #ffd700;
+      font-size: 16px;
+      opacity: 0.8;
+    }
+
+    @keyframes rayShine {
+      0%, 100% { 
+        opacity: 0.4; 
+        transform: translateY(0px) scale(0.8); 
+      }
+      50% { 
+        opacity: 1; 
+        transform: translateY(10px) scale(1.2); 
+      }
+    }
+
+    /* Static sun */
+    .sun {
+      color: #ffa500;
+      font-size: 14px;
+      animation: sunGlow 6s ease-in-out infinite;
+    }
+
+    @keyframes sunGlow {
+      0%, 100% { 
+        opacity: 0.9; 
+        transform: scale(1); 
+        filter: brightness(1);
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.05); 
+        filter: brightness(1.2);
+      }
+    }
+
+    /* Weather button */
+    .weather-btn {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(135deg, #ffffff, #f8f8f8) !important;
+      border: 1px solid rgba(0,0,0,0.1) !important;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    .weather-btn:hover {
+      transform: translateY(-1px) !important;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+      background: linear-gradient(135deg, #f8f8f8, #f0f0f0) !important;
+    }
+
+    /* Delete button styles */
+    .delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+      color: white !important;
+      border: none !important;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+
+    .delete-btn:hover {
+      background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+      transform: scale(1.1);
+    }
+
+    .note-item {
+      position: relative;
+    }
+
+    .note-item:hover .delete-btn {
+      display: flex !important;
+    }
+
+    /* Night mode styles */
+    .night-mode {
+      background-color: #0f0f23 !important;
+      color: #e0e0e0 !important;
+    }
+
+    .night-mode .sidebar {
+      background-color: #1a1a2e !important;
+    }
+
+    .night-mode .toolbar {
+      background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(15,15,35,0.95)) !important;
+      border-bottom: 1px solid rgba(224,224,224,0.2) !important;
+    }
+
+    .night-mode .toolbar button {
+      background: linear-gradient(135deg, #2a2a4a, #1f1f3f) !important;
+      color: #e0e0e0 !important;
+      border: 1px solid rgba(224,224,224,0.2) !important;
+    }
+
+    .night-mode .toolbar button:hover {
+      background: linear-gradient(135deg, #3a3a5a, #2f2f4f) !important;
+    }
+
+    .night-mode #note-editor {
+      background-color: #1a1a2e !important;
+      color: #e0e0e0 !important;
+    }
+
+    .night-mode header {
+      background-color: #0f0f23 !important;
+      border-bottom: 1px solid rgba(224,224,224,0.2) !important;
+    }
+
+    /* Star animation */
+    .star {
+      animation: twinkle 2s ease-in-out infinite;
+      color: #fff;
+      font-size: 10px;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Shooting star animation */
+    .shooting-star {
+      animation: shoot 3s linear infinite;
+      color: #ffd700;
+      font-size: 12px;
+    }
+
+    @keyframes shoot {
+      0% { 
+        transform: translateX(-50px) translateY(-20px); 
+        opacity: 0; 
+      }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { 
+        transform: translateX(200px) translateY(60px); 
+        opacity: 0; 
+      }
+    }
+  </style>
+</head>
+
+<body class="h-screen overflow-hidden">
+  <!-- ?úÎ™© ?§Îçî -->
+  <header class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 px-4 py-6 flex items-center justify-between relative z-20" style="height: 120px;">
+    <!-- Weather ASCII Art Container -->
+    <div id="weather-container" class="weather-container"></div>
+    
+    <!-- Left spacer -->
+    <div class="w-20"></div>
+    
+    <!-- Title -->
+    <div class="flex-1 flex justify-center">
+      <h1 class="text-3xl font-bold text-gray-800 relative z-10">B note</h1>
+    </div>
+    
+    <!-- Weather Button -->
+    <div class="w-20 flex justify-end">
+      <button 
+        id="weather-btn" 
+        class="weather-btn h-10 w-10 rounded-lg flex items-center justify-center text-lg"
+        title="?†Ïî® ?®Í≥º"
+      >
+        ?ÅÔ∏è
+      </button>
+    </div>
+  </header>
+
+  <div class="flex h-full" style="margin-top: 120px; height: calc(100vh - 120px);">
+    <!-- ?¨Ïù¥?úÎ∞î (Î™®Î∞î?ºÏóê???®Í?) -->
+    <div class="sidebar w-80 bg-white border-r border-gray-200 flex flex-col">
+      <!-- ??Î©îÎ™® Î≤ÑÌäº -->
+      <div class="p-4 border-b border-gray-200">
+        <button
+          id="new-note"
+          class="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+        >
+          + ??Î©îÎ™®
+        </button>
+      </div>
+
+      <!-- Î©îÎ™® Î™©Î°ù -->
+      <div class="flex-1 overflow-y-auto">
+        <ul id="note-list" class="divide-y divide-gray-100">
+          <!-- Î©îÎ™®?§Ïù¥ ?¨Í∏∞???ôÏ†Å?ºÎ°ú Ï∂îÍ??©Îãà??-->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Î©îÏù∏ ÏΩòÌÖêÏ∏?-->
+    <div class="main-content flex-1 flex flex-col">
+      <!-- ?¥Î∞î -->
+      <div id="toolbar" class="toolbar flex items-center gap-1 p-2 bg-white border-b border-gray-200">
+        <button data-cmd="bold" class="h-10 w-10 rounded-lg flex items-center justify-center font-bold" title="Î≥ºÎìú">B</button>
+        <button data-cmd="italic" class="h-10 w-10 rounded-lg flex items-center justify-center italic" title="?¥ÌÉ§Î¶?>I</button>
+        <button data-cmd="underline" class="h-10 w-10 rounded-lg flex items-center justify-center" title="Î∞ëÏ§Ñ">U</button>
+        <button data-cmd="strikethrough" class="h-10 w-10 rounded-lg flex items-center justify-center" title="Ï∑®ÏÜå??>S</button>
+        
+        <div class="w-px h-6 bg-gray-300 mx-1"></div>
+        
+        <button data-cmd="insertUnorderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="Î∂àÎ¶ø Î¶¨Ïä§??>??/button>
+        <button data-cmd="insertOrderedList" class="h-10 w-10 rounded-lg flex items-center justify-center" title="Î≤àÌò∏ Î¶¨Ïä§??>1.</button>
+        
+        <div class="w-px h-6 bg-gray-300 mx-1"></div>
+        
+        <button data-cmd="blockquote" class="h-10 w-10 rounded-lg flex items-center justify-center" title="?∏Ïö©Íµ?>"</button>
+        <button data-cmd="insertHorizontalRule" class="h-10 w-10 rounded-lg flex items-center justify-center" title="Íµ¨Î∂Ñ??>??/button>
+        
+        <div class="w-px h-6 bg-gray-300 mx-1"></div>
+        
+        <button data-cmd="link" class="h-10 w-10 rounded-lg flex items-center justify-center" title="ÎßÅÌÅ¨">?îó</button>
+        <button data-cmd="unlink" class="h-10 w-10 rounded-lg flex items-center justify-center" title="ÎßÅÌÅ¨ ?¥Ï†ú">?ìÔ∏è?çüí?/button>
+        
+        <div class="w-px h-6 bg-gray-300 mx-1"></div>
+        
+        <button data-cmd="fontSize-large" class="h-10 w-10 rounded-lg flex items-center justify-center text-sm" title="?¨Í≤å">A+</button>
+        <button data-cmd="fontSize-small" class="h-10 w-10 rounded-lg flex items-center justify-center text-xs" title="?ëÍ≤å">A-</button>
+      </div>
+
+      <!-- ?êÎîî??-->
+      <div class="flex-1 p-4 bg-white">
+        <div
+          id="note-editor"
+          contenteditable="true"
+          class="w-full h-full outline-none resize-none leading-relaxed text-gray-800 overflow-y-auto"
+          style="height: calc(100vh - 280px);"
+        ></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ?çÏä§???ÖÎ†• Î™®Îã¨ -->
+  <div id="text-input-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="modal-content bg-white rounded-lg p-6 w-96 max-w-md mx-4 transform transition-all duration-200 scale-95">
+      <h3 id="modal-title" class="text-lg font-semibold mb-4 text-gray-800">?çÏä§???ÖÎ†•</h3>
+      <div class="mb-4">
+        <label id="modal-label" class="block text-sm font-medium text-gray-700 mb-2">?¥Ïö©???ÖÎ†•?òÏÑ∏??</label>
+        <input 
+          type="text" 
+          id="modal-input" 
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          placeholder="?¨Í∏∞???ÖÎ†•?òÏÑ∏??.."
+        />
+      </div>
+      <div class="flex justify-end gap-2">
+        <button id="modal-cancel" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">Ï∑®ÏÜå</button>
+        <button id="modal-confirm" class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors">?ïÏù∏</button>
+      </div>
+    </div>
+    <div id="modal-overlay" class="absolute inset-0"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html> 
