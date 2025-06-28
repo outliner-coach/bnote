@@ -1,0 +1,6 @@
+{
+  "/notes/page": "app/notes/page.js",
+  "/notes/[id]/page": "app/notes/[id]/page.js",
+  "/api/notes/route": "app/api/notes/route.js",
+  "/notes/new/page": "app/notes/new/page.js"
+}
