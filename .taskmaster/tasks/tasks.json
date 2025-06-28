@@ -1,0 +1,775 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Project Setup and Configuration",
+        "description": "Initialize Next.js project with React and configure essential dependencies including Clerk.ai, Slate.js, and Tailwind CSS.",
+        "details": "1. Create a new Next.js project: `npx create-next-app bnote --typescript`\n2. Install core dependencies: `npm install @clerk/nextjs slate slate-react tailwindcss postcss autoprefixer`\n3. Initialize Tailwind CSS: `npx tailwindcss init -p`\n4. Configure Clerk.ai environment variables in .env.local:\n   ```\n   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...\n   CLERK_SECRET_KEY=sk_...\n   ```\n5. Setup project structure with folders for components, pages, hooks, utils, and API routes\n6. Configure tsconfig.json with appropriate paths",
+        "testStrategy": "Verify project builds successfully with `npm run dev`. Check that all dependencies are correctly installed and environment variables are properly loaded.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Next.js project with App Router",
+            "description": "Create a new Next.js project using the latest version with App Router and TypeScript support",
+            "dependencies": [],
+            "details": "Run `npx create-next-app@latest bnote --typescript --tailwind --eslint --app --src-dir --import-alias '@/*'`\n<info added on 2025-06-28T00:52:58.726Z>\n✅ Next.js 프로젝트 초기화 완료!\n\n**완료된 작업:**\n1. package.json 생성 및 Next.js 스크립트 설정\n2. Next.js, React, TypeScript 설치 완료\n3. next.config.js 설정 파일 생성 (App Router 활성화)\n4. tsconfig.json 설정 (path aliases 포함)\n5. src/app 디렉토리 구조 생성 (App Router)\n6. 기본 layout.tsx, page.tsx, globals.css 생성\n7. Tailwind CSS 설치 및 설정 완료\n8. 개발 서버 실행 중\n\n**프로젝트 구조:**\n- src/app/ (App Router)\n- src/components/ (컴포넌트)\n- src/lib/ (유틸리티)\n- src/hooks/ (커스텀 훅)\n- TypeScript path aliases 설정 완료\n\n다음 단계: Clerk.ai 통합 및 Slate.js 설치\n</info added on 2025-06-28T00:52:58.726Z>",
+            "status": "done",
+            "testStrategy": "Verify the project structure and ensure all files are created correctly"
+          },
+          {
+            "id": 2,
+            "title": "Install and configure Clerk.ai",
+            "description": "Add Clerk.ai authentication to the project and set up necessary environment variables",
+            "dependencies": [
+              1
+            ],
+            "details": "Run `npm install @clerk/nextjs`, add Clerk provider to app/layout.tsx, and set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY and CLERK_SECRET_KEY in .env.local\n<info added on 2025-06-28T01:13:20.362Z>\n✅ Clerk.ai 통합 완료! (최신 App Router 방식)\n\n**완료된 작업:**\n1. @clerk/nextjs 최신 SDK 설치 완료\n2. middleware.ts 생성 - clerkMiddleware() 사용 (올바른 방식)\n3. app/layout.tsx에 ClerkProvider 래핑 추가\n4. 인증 UI 컴포넌트들 통합:\n   - SignInButton, SignUpButton (모달 방식)\n   - UserButton (로그아웃 후 홈으로 리다이렉트)\n   - SignedIn, SignedOut 조건부 렌더링\n5. 헤더 네비게이션 구성 (로그인/회원가입 버튼)\n6. 홈 페이지 업데이트 (인증 상태별 UI)\n\n**구현된 기능:**\n- 최신 App Router 호환 방식\n- 소셜 로그인 지원 (Google, GitHub 등)\n- 모달 형태의 로그인/회원가입\n- 인증 상태에 따른 UI 변경\n- 사용자 프로필 관리\n\n**다음 단계:** 환경변수 설정 후 테스트\n- .env.local에 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY 설정 필요\n- Clerk Dashboard에서 API 키 발급 필요\n</info added on 2025-06-28T01:13:20.362Z>\n<info added on 2025-06-28T01:17:53.249Z>\n🧪 **구현 테스트 및 문제 해결 완료**\n\n**해결된 주요 문제들:**\n1. Next.js 15 호환성: experimental.appDir 경고 제거\n2. Tailwind CSS 4.x 호환성: @tailwindcss/postcss 설치 및 설정\n3. 빌드 성공: 전체 프로젝트 컴파일 확인\n\n**테스트 결과:**\n✅ npm run build - 성공적으로 빌드됨\n✅ npm run dev - 개발 서버 정상 실행\n✅ TypeScript 타입 체크 통과\n✅ ESLint 검사 통과\n✅ 반응형 UI 렌더링 확인\n\n**현재 상태:**\n- 기본 UI 구조 완성\n- Clerk.ai 컴포넌트 통합 완료\n- 환경변수 설정만 하면 인증 기능 즉시 사용 가능\n- http://localhost:3000에서 접근 가능\n\n**다음 단계:** Clerk.ai API 키 설정 후 인증 기능 테스트\n</info added on 2025-06-28T01:17:53.249Z>",
+            "status": "done",
+            "testStrategy": "Test Clerk authentication by creating a protected route"
+          },
+          {
+            "id": 3,
+            "title": "Integrate Slate.js for rich text editing",
+            "description": "Install Slate.js and create a basic rich text editor component",
+            "dependencies": [
+              1
+            ],
+            "details": "Run `npm install slate slate-react`, create a new component in components/RichTextEditor.tsx with basic Slate.js setup\n<info added on 2025-06-28T08:17:03.286Z>\nSuccessfully implemented a comprehensive rich text editor with Slate.js:\n\n- Created full-featured editor component in `src/components/Editor.tsx`\n- Implemented text formatting: bold, italic, underline\n- Added block formatting: H1, H2, bullet lists, numbered lists\n- Configured keyboard shortcuts: Ctrl/Cmd + B/I/U\n- Designed props API with placeholder, onChange, initialContent\n- Built mobile-friendly UI using Tailwind CSS\n- Applied clean iOS Notes-style design\n\nIntegration status:\n- Editor now used in `/notes/new` page for creating notes\n- Editor implemented in `/notes/[id]` page for editing notes\n- Build test passed: `npm run build` successful\n- Development server running: `npm run dev`\n\nAll TypeScript type checks passed, Webpack compilation successful, and Slate.js dependencies working properly.\n</info added on 2025-06-28T08:17:03.286Z>",
+            "status": "done",
+            "testStrategy": "Implement a simple test page to ensure the rich text editor renders and functions correctly"
+          },
+          {
+            "id": 4,
+            "title": "Configure Tailwind CSS for styling",
+            "description": "Set up Tailwind CSS with custom configuration for the project",
+            "dependencies": [
+              1
+            ],
+            "details": "Modify tailwind.config.js to include custom colors, fonts, and extend theme as needed for B Note project",
+            "status": "done",
+            "testStrategy": "Create a test component applying custom Tailwind classes to verify configuration"
+          },
+          {
+            "id": 5,
+            "title": "Setup project structure and routing",
+            "description": "Organize the project structure with appropriate folders and implement basic routing",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create folders for components, lib, hooks, and api. Set up basic pages in the app directory including home, dashboard, and notes",
+            "status": "done",
+            "testStrategy": "Test navigation between different routes to ensure proper setup"
+          },
+          {
+            "id": 6,
+            "title": "Configure TypeScript paths and ESLint",
+            "description": "Set up TypeScript path aliases and configure ESLint for code quality",
+            "dependencies": [
+              1,
+              5
+            ],
+            "details": "Modify tsconfig.json to include path aliases. Update .eslintrc.json with project-specific rules and integrate with Next.js config\n<info added on 2025-06-28T08:20:25.741Z>\n**TypeScript 경로 별칭 설정:**\n- `@/*`: `./src/*` - 기본 경로 별칭\n- `@/components/*`: `./src/components/*`\n- `@/lib/*`: `./src/lib/*`\n- `@/hooks/*`: `./src/hooks/*`\n- `@/utils/*`: `./src/utils/*`\n- `@/types/*`: `./src/types/*`\n\n**ESLint 설정:**\n- Next.js 최적화된 ESLint 설정 자동 생성\n- `eslint-config-next` 설치 및 구성\n- TypeScript 지원 포함\n- Core Web Vitals 규칙 포함\n\n**테스트 결과:**\n- TypeScript 컴파일: 정상 작동 ✅\n- ESLint 실행: 정상 작동 ✅\n- 몇 가지 코드 품질 이슈 발견 (추후 수정 가능)\n\n설정이 완료되어 개발 시 코드 품질 검사와 자동 완성이 향상됨\n</info added on 2025-06-28T08:20:25.741Z>",
+            "status": "done",
+            "testStrategy": "Run ESLint to check for any configuration issues and test import statements using path aliases"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Clerk.ai Authentication Integration",
+        "description": "Implement Clerk.ai authentication with email/password and social login options (Google, GitHub) using Next.js App Router and the latest Clerk SDK.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "1. Install the latest Clerk SDK:\n   ```bash\n   npm install @clerk/nextjs@latest\n   ```\n\n2. Configure middleware to protect routes:\n   ```tsx\n   // middleware.ts\n   import { clerkMiddleware } from '@clerk/nextjs';\n   \n   export default clerkMiddleware({\n     publicRoutes: ['/sign-in', '/sign-up']\n   });\n   ```\n\n3. Wrap application with ClerkProvider in app/layout.tsx:\n   ```tsx\n   // app/layout.tsx\n   import { ClerkProvider } from '@clerk/nextjs';\n   \n   export default function RootLayout({ children }) {\n     return (\n       <ClerkProvider>\n         <html lang=\"en\">\n           <body>\n             {/* Header with auth components */}\n             <header>\n               <SignedOut>\n                 <SignInButton />\n                 <SignUpButton />\n               </SignedOut>\n               <SignedIn>\n                 <UserButton />\n               </SignedIn>\n             </header>\n             {children}\n           </body>\n         </html>\n       </ClerkProvider>\n     );\n   }\n   ```\n\n4. Set up environment variables in .env.local:\n   ```\n   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...\n   CLERK_SECRET_KEY=sk_...\n   ```\n\n5. Configure social login providers (Google, GitHub) in the Clerk dashboard\n\n6. Implement authentication UI components using Clerk's built-in components:\n   ```tsx\n   import { SignInButton, SignUpButton, UserButton, SignedIn, SignedOut } from '@clerk/nextjs';\n   ```",
+        "testStrategy": "1. Test user registration flow with email/password\n2. Test social login with Google and GitHub providers\n3. Verify login persistence across page refreshes\n4. Ensure protected routes redirect unauthenticated users to sign-in page\n5. Test sign-out functionality\n6. Verify proper UI rendering for authenticated vs unauthenticated states",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install and configure Clerk SDK",
+            "description": "Install @clerk/nextjs@latest and set up required environment variables",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement middleware with clerkMiddleware",
+            "description": "Create middleware.ts using clerkMiddleware() to protect routes",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Set up ClerkProvider in app/layout.tsx",
+            "description": "Wrap the application with ClerkProvider in the App Router layout",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement authentication UI components",
+            "description": "Add SignInButton, SignUpButton, UserButton, SignedIn, and SignedOut components to the header",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure social login providers",
+            "description": "Set up Google and GitHub authentication in the Clerk dashboard",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Test authentication flows",
+            "description": "Test email/password registration, social logins, and protected routes",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "User Session Management",
+        "description": "Implement JWT token management with automatic refresh and expiration handling using Clerk's App Router approach.",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "high",
+        "details": "1. Use Clerk's App Router compatible session management:\n\n   **Server Components:**\n   ```tsx\n   import { auth, currentUser } from '@clerk/nextjs/server';\n   \n   async function ServerComponent() {\n     const { userId } = auth();\n     const user = await currentUser();\n     // Access user data securely on the server\n   }\n   ```\n\n   **Client Components:**\n   ```tsx\n   import { useUser, useSession } from '@clerk/nextjs';\n   \n   function ClientComponent() {\n     const { user, isLoaded, isSignedIn } = useUser();\n     const { session } = useSession();\n     // Access user and session data\n   }\n   ```\n\n2. Create utility functions for extracting user information:\n   ```tsx\n   // utils/user-utils.ts\n   import { User } from '@clerk/nextjs/server';\n   \n   export function extractUserInfo(user: User | null) {\n     return {\n       userId: user?.id || '',\n       userImage: user?.profileImageUrl,\n       userName: user?.firstName || 'User',\n       email: user?.emailAddresses?.[0]?.emailAddress\n     };\n   }\n   ```\n\n3. Create a custom hook for client components:\n   ```tsx\n   // hooks/useUserInfo.ts\n   import { useUser } from '@clerk/nextjs';\n   import { extractUserInfo } from '../utils/user-utils';\n   \n   export function useUserInfo() {\n     const { user, isLoaded, isSignedIn } = useUser();\n     return {\n       ...extractUserInfo(user),\n       isLoaded,\n       isSignedIn\n     };\n   }\n   ```\n\n4. Implement session expiration handling with redirect to login page\n5. Add loading states for authentication operations\n6. Let Clerk handle JWT token management internally",
+        "testStrategy": "Test authentication flow in both server and client components. Verify session persistence across browser tabs. Test session expiration and automatic redirection to login. Verify proper loading states during authentication operations.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement server-side auth with auth() and currentUser()",
+            "description": "Create utility functions for server components to access authentication data",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement client-side auth with useUser() and useSession()",
+            "description": "Create custom hooks for client components to access user and session data",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create user information extraction utilities",
+            "description": "Build helper functions to consistently extract and format user data from Clerk objects",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement loading and authentication states",
+            "description": "Add proper handling of loading states during authentication operations",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add session expiration handling",
+            "description": "Implement logic to handle expired sessions and redirect to login page",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Database Schema and API Models",
+        "description": "Define database schema for notes and implement data models with user associations.",
+        "details": "1. Choose MongoDB for flexible schema:\n   ```typescript\n   // models/Note.ts\n   import mongoose from 'mongoose';\n   \n   const NoteSchema = new mongoose.Schema({\n     userId: { type: String, required: true, index: true },\n     title: { type: String, default: 'Untitled Note' },\n     content: { type: Object, default: {} }, // Slate.js JSON content\n     weather: { type: String, enum: ['rain', 'snow', 'sunny', 'cloudy', 'night'], default: 'sunny' },\n     createdAt: { type: Date, default: Date.now },\n     updatedAt: { type: Date, default: Date.now }\n   });\n   \n   export default mongoose.models.Note || mongoose.model('Note', NoteSchema);\n   ```\n2. Create database connection utility:\n   ```typescript\n   // lib/mongodb.ts\n   import mongoose from 'mongoose';\n   \n   const MONGODB_URI = process.env.MONGODB_URI;\n   \n   if (!MONGODB_URI) {\n     throw new Error('Please define the MONGODB_URI environment variable');\n   }\n   \n   let cached = global.mongoose;\n   if (!cached) {\n     cached = global.mongoose = { conn: null, promise: null };\n   }\n   \n   export async function connectToDatabase() {\n     if (cached.conn) {\n       return cached.conn;\n     }\n     \n     if (!cached.promise) {\n       cached.promise = mongoose.connect(MONGODB_URI).then(mongoose => mongoose);\n     }\n     cached.conn = await cached.promise;\n     return cached.conn;\n   }\n   ```\n3. Define TypeScript interfaces for Note model",
+        "testStrategy": "Create test database connection and verify schema validation. Test CRUD operations on the Note model with sample data. Verify indexes are created correctly for efficient queries.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "in-progress",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Note API Endpoints - Create",
+        "description": "Implement API endpoint for creating new notes with user authentication.",
+        "details": "1. Create API route for note creation:\n   ```typescript\n   // pages/api/notes/index.ts\n   import { getAuth } from '@clerk/nextjs/server';\n   import { connectToDatabase } from '../../../lib/mongodb';\n   import Note from '../../../models/Note';\n   \n   export default async function handler(req, res) {\n     if (req.method !== 'POST') {\n       return res.status(405).json({ message: 'Method not allowed' });\n     }\n     \n     try {\n       const { userId } = getAuth(req);\n       if (!userId) {\n         return res.status(401).json({ message: 'Unauthorized' });\n       }\n       \n       await connectToDatabase();\n       \n       const { title, content, weather } = req.body;\n       const note = new Note({\n         userId,\n         title: title || 'Untitled Note',\n         content: content || { type: 'doc', content: [{ type: 'paragraph', content: [{ text: '' }] }] },\n         weather: weather || 'sunny'\n       });\n       \n       await note.save();\n       return res.status(201).json(note);\n     } catch (error) {\n       console.error('Error creating note:', error);\n       return res.status(500).json({ message: 'Error creating note' });\n     }\n   }\n   ```\n2. Implement validation for request body\n3. Add error handling for database operations",
+        "testStrategy": "Test API endpoint with authenticated and unauthenticated requests. Verify note creation with various input combinations. Test validation error handling for invalid inputs.",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Note API Endpoints - Read",
+        "description": "Implement API endpoint for retrieving notes with user-based filtering.",
+        "details": "1. Create API route for fetching user's notes:\n   ```typescript\n   // pages/api/notes/index.ts (GET handler)\n   import { getAuth } from '@clerk/nextjs/server';\n   import { connectToDatabase } from '../../../lib/mongodb';\n   import Note from '../../../models/Note';\n   \n   export default async function handler(req, res) {\n     if (req.method === 'GET') {\n       try {\n         const { userId } = getAuth(req);\n         if (!userId) {\n           return res.status(401).json({ message: 'Unauthorized' });\n         }\n         \n         await connectToDatabase();\n         \n         const notes = await Note.find({ userId })\n           .sort({ updatedAt: -1 })\n           .lean();\n         \n         return res.status(200).json(notes);\n       } catch (error) {\n         console.error('Error fetching notes:', error);\n         return res.status(500).json({ message: 'Error fetching notes' });\n       }\n     }\n     \n     // Handle other methods...\n   }\n   ```\n2. Create API route for fetching a single note by ID:\n   ```typescript\n   // pages/api/notes/[id].ts (GET handler)\n   import { getAuth } from '@clerk/nextjs/server';\n   import { connectToDatabase } from '../../../lib/mongodb';\n   import Note from '../../../models/Note';\n   \n   export default async function handler(req, res) {\n     if (req.method === 'GET') {\n       try {\n         const { userId } = getAuth(req);\n         if (!userId) {\n           return res.status(401).json({ message: 'Unauthorized' });\n         }\n         \n         const { id } = req.query;\n         await connectToDatabase();\n         \n         const note = await Note.findOne({ _id: id, userId }).lean();\n         \n         if (!note) {\n           return res.status(404).json({ message: 'Note not found' });\n         }\n         \n         return res.status(200).json(note);\n       } catch (error) {\n         console.error('Error fetching note:', error);\n         return res.status(500).json({ message: 'Error fetching note' });\n       }\n     }\n     \n     // Handle other methods...\n   }\n   ```\n3. Implement pagination for notes list API",
+        "testStrategy": "Test API endpoints with authenticated requests. Verify user can only access their own notes. Test pagination functionality with large datasets. Test error handling for invalid note IDs.",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Note API Endpoints - Update",
+        "description": "Implement API endpoint for updating notes with owner verification.",
+        "details": "1. Create API route for updating a note:\n   ```typescript\n   // pages/api/notes/[id].ts (PATCH handler)\n   import { getAuth } from '@clerk/nextjs/server';\n   import { connectToDatabase } from '../../../lib/mongodb';\n   import Note from '../../../models/Note';\n   \n   export default async function handler(req, res) {\n     if (req.method === 'PATCH') {\n       try {\n         const { userId } = getAuth(req);\n         if (!userId) {\n           return res.status(401).json({ message: 'Unauthorized' });\n         }\n         \n         const { id } = req.query;\n         await connectToDatabase();\n         \n         // Verify ownership\n         const existingNote = await Note.findOne({ _id: id });\n         if (!existingNote) {\n           return res.status(404).json({ message: 'Note not found' });\n         }\n         \n         if (existingNote.userId !== userId) {\n           return res.status(403).json({ message: 'Forbidden' });\n         }\n         \n         const { title, content, weather } = req.body;\n         const updateData = {\n           ...(title !== undefined && { title }),\n           ...(content !== undefined && { content }),\n           ...(weather !== undefined && { weather }),\n           updatedAt: new Date()\n         };\n         \n         const updatedNote = await Note.findByIdAndUpdate(\n           id,\n           updateData,\n           { new: true }\n         ).lean();\n         \n         return res.status(200).json(updatedNote);\n       } catch (error) {\n         console.error('Error updating note:', error);\n         return res.status(500).json({ message: 'Error updating note' });\n       }\n     }\n     \n     // Handle other methods...\n   }\n   ```\n2. Implement validation for update fields\n3. Add conflict resolution for concurrent updates",
+        "testStrategy": "Test API endpoint with authenticated requests. Verify ownership checks prevent unauthorized updates. Test partial updates with different field combinations. Test concurrent update handling.",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Note API Endpoints - Delete",
+        "description": "Implement API endpoint for deleting notes with owner verification.",
+        "details": "1. Create API route for deleting a note:\n   ```typescript\n   // pages/api/notes/[id].ts (DELETE handler)\n   import { getAuth } from '@clerk/nextjs/server';\n   import { connectToDatabase } from '../../../lib/mongodb';\n   import Note from '../../../models/Note';\n   \n   export default async function handler(req, res) {\n     if (req.method === 'DELETE') {\n       try {\n         const { userId } = getAuth(req);\n         if (!userId) {\n           return res.status(401).json({ message: 'Unauthorized' });\n         }\n         \n         const { id } = req.query;\n         await connectToDatabase();\n         \n         // Verify ownership\n         const existingNote = await Note.findOne({ _id: id });\n         if (!existingNote) {\n           return res.status(404).json({ message: 'Note not found' });\n         }\n         \n         if (existingNote.userId !== userId) {\n           return res.status(403).json({ message: 'Forbidden' });\n         }\n         \n         await Note.findByIdAndDelete(id);\n         \n         return res.status(204).end();\n       } catch (error) {\n         console.error('Error deleting note:', error);\n         return res.status(500).json({ message: 'Error deleting note' });\n       }\n     }\n     \n     // Handle other methods...\n   }\n   ```\n2. Add soft delete option for data recovery\n3. Implement batch delete functionality",
+        "testStrategy": "Test API endpoint with authenticated requests. Verify ownership checks prevent unauthorized deletions. Test error handling for invalid note IDs. Verify deleted notes are no longer accessible.",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Slate.js Editor Integration",
+        "description": "Set up Slate.js rich text editor with basic functionality.",
+        "details": "1. Create a basic Slate editor component:\n   ```tsx\n   // components/Editor/SlateEditor.tsx\n   import React, { useMemo, useState } from 'react';\n   import { createEditor, Descendant } from 'slate';\n   import { Slate, Editable, withReact } from 'slate-react';\n   \n   const initialValue: Descendant[] = [\n     {\n       type: 'paragraph',\n       children: [{ text: '' }],\n     },\n   ];\n   \n   export default function SlateEditor({ value, onChange }) {\n     const editor = useMemo(() => withReact(createEditor()), []);\n     const [editorValue, setEditorValue] = useState<Descendant[]>(value || initialValue);\n     \n     const handleChange = (newValue) => {\n       setEditorValue(newValue);\n       onChange && onChange(newValue);\n     };\n     \n     return (\n       <Slate editor={editor} value={editorValue} onChange={handleChange}>\n         <Editable\n           className=\"min-h-[70vh] p-4 focus:outline-none\"\n           placeholder=\"Start writing...\"\n         />\n       </Slate>\n     );\n   }\n   ```\n2. Implement custom rendering for different node types\n3. Add keyboard event handlers for basic shortcuts\n4. Create serialization utilities for Slate JSON to/from HTML",
+        "testStrategy": "Test basic text input and cursor positioning. Verify editor state updates correctly. Test serialization functions with various content structures. Ensure editor renders correctly on different screen sizes.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Text Formatting Toolbar",
+        "description": "Implement a formatting toolbar for the editor with bold, italic, underline, strikethrough, and link options.",
+        "details": "1. Create a toolbar component with formatting buttons:\n   ```tsx\n   // components/Editor/Toolbar.tsx\n   import React from 'react';\n   import { useSlate } from 'slate-react';\n   import { Editor, Transforms, Element as SlateElement } from 'slate';\n   \n   const isMarkActive = (editor, format) => {\n     const marks = Editor.marks(editor);\n     return marks ? marks[format] === true : false;\n   };\n   \n   const toggleMark = (editor, format) => {\n     const isActive = isMarkActive(editor, format);\n     if (isActive) {\n       Editor.removeMark(editor, format);\n     } else {\n       Editor.addMark(editor, format, true);\n     }\n   };\n   \n   export default function Toolbar() {\n     const editor = useSlate();\n     \n     return (\n       <div className=\"flex items-center p-2 border-b sticky top-0 bg-white z-10\">\n         <button\n           className={`p-2 mx-1 rounded ${isMarkActive(editor, 'bold') ? 'bg-gray-200' : ''}`}\n           onMouseDown={(e) => {\n             e.preventDefault();\n             toggleMark(editor, 'bold');\n           }}\n         >\n           <strong>B</strong>\n         </button>\n         <button\n           className={`p-2 mx-1 rounded ${isMarkActive(editor, 'italic') ? 'bg-gray-200' : ''}`}\n           onMouseDown={(e) => {\n             e.preventDefault();\n             toggleMark(editor, 'italic');\n           }}\n         >\n           <em>I</em>\n         </button>\n         {/* Add more formatting buttons */}\n       </div>\n     );\n   }\n   ```\n2. Implement custom leaf rendering for text formatting:\n   ```tsx\n   // components/Editor/SlateEditor.tsx\n   const renderLeaf = useCallback(({ attributes, children, leaf }) => {\n     let el = children;\n     \n     if (leaf.bold) {\n       el = <strong>{el}</strong>;\n     }\n     \n     if (leaf.italic) {\n       el = <em>{el}</em>;\n     }\n     \n     if (leaf.underline) {\n       el = <u>{el}</u>;\n     }\n     \n     if (leaf.strikethrough) {\n       el = <s>{el}</s>;\n     }\n     \n     return <span {...attributes}>{el}</span>;\n   }, []);\n   ```\n3. Add link insertion functionality with URL input dialog\n4. Ensure toolbar buttons have appropriate touch target sizes (44×44px)",
+        "testStrategy": "Test each formatting button individually. Verify formatting is applied correctly to selected text. Test keyboard shortcuts for formatting. Ensure toolbar is accessible and works on touch devices.",
+        "priority": "high",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "List and Block Formatting",
+        "description": "Implement bullet lists, numbered lists, blockquotes, and horizontal rule formatting options.",
+        "details": "1. Add block-level formatting to the toolbar:\n   ```tsx\n   const toggleBlock = (editor, format) => {\n     const isActive = isBlockActive(editor, format);\n     const isList = ['numbered-list', 'bulleted-list'].includes(format);\n     \n     Transforms.unwrapNodes(editor, {\n       match: n => ['numbered-list', 'bulleted-list'].includes(n.type),\n       split: true,\n     });\n     \n     Transforms.setNodes(editor, {\n       type: isActive ? 'paragraph' : isList ? 'list-item' : format,\n     });\n     \n     if (!isActive && isList) {\n       Transforms.wrapNodes(editor, { type: format, children: [] });\n     }\n   };\n   ```\n2. Implement custom element rendering for block formats:\n   ```tsx\n   const renderElement = useCallback(props => {\n     const { attributes, children, element } = props;\n     \n     switch (element.type) {\n       case 'block-quote':\n         return <blockquote {...attributes} className=\"border-l-4 border-gray-300 pl-4 italic\">{children}</blockquote>;\n       case 'bulleted-list':\n         return <ul {...attributes}>{children}</ul>;\n       case 'heading-one':\n         return <h1 {...attributes} className=\"text-2xl font-bold\">{children}</h1>;\n       case 'heading-two':\n         return <h2 {...attributes} className=\"text-xl font-bold\">{children}</h2>;\n       case 'list-item':\n         return <li {...attributes}>{children}</li>;\n       case 'numbered-list':\n         return <ol {...attributes}>{children}</ol>;\n       case 'hr':\n         return <hr {...attributes} />;\n       default:\n         return <p {...attributes}>{children}</p>;\n     }\n   }, []);\n   ```\n3. Add horizontal rule insertion functionality\n4. Implement keyboard shortcuts for list creation and indentation",
+        "testStrategy": "Test creation and formatting of different list types. Verify proper nesting of list items. Test conversion between different block types. Ensure proper rendering of all block formats.",
+        "priority": "medium",
+        "dependencies": [
+          9,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Text Styling Options",
+        "description": "Implement text size, color, and background color formatting options.",
+        "details": "1. Add text styling options to the toolbar:\n   ```tsx\n   const FontSizeButton = () => {\n     const editor = useSlate();\n     const sizes = ['small', 'normal', 'large', 'huge'];\n     \n     return (\n       <select\n         value={getCurrentFontSize(editor) || 'normal'}\n         onChange={(e) => {\n           Editor.addMark(editor, 'fontSize', e.target.value);\n         }}\n         className=\"p-2 mx-1 rounded\"\n       >\n         {sizes.map(size => (\n           <option key={size} value={size}>{size}</option>\n         ))}\n       </select>\n     );\n   };\n   \n   const ColorButton = () => {\n     const editor = useSlate();\n     const colors = ['black', 'red', 'blue', 'green', 'yellow'];\n     \n     return (\n       <div className=\"relative inline-block\">\n         <button className=\"p-2 mx-1 rounded\">\n           <span className=\"w-4 h-4 inline-block\" style={{ backgroundColor: getCurrentColor(editor) || 'black' }} />\n         </button>\n         <div className=\"absolute top-full left-0 bg-white shadow-lg rounded p-2 hidden group-hover:block\">\n           {colors.map(color => (\n             <button\n               key={color}\n               className=\"w-6 h-6 m-1 rounded\"\n               style={{ backgroundColor: color }}\n               onMouseDown={(e) => {\n                 e.preventDefault();\n                 Editor.addMark(editor, 'color', color);\n               }}\n             />\n           ))}\n         </div>\n       </div>\n     );\n   };\n   ```\n2. Update leaf rendering to handle text styling:\n   ```tsx\n   const renderLeaf = useCallback(({ attributes, children, leaf }) => {\n     let el = children;\n     \n     // Existing formatting...\n     \n     if (leaf.fontSize) {\n       const sizeMap = {\n         small: 'text-sm',\n         normal: 'text-base',\n         large: 'text-lg',\n         huge: 'text-xl'\n       };\n       el = <span className={sizeMap[leaf.fontSize] || 'text-base'}>{el}</span>;\n     }\n     \n     if (leaf.color) {\n       el = <span style={{ color: leaf.color }}>{el}</span>;\n     }\n     \n     if (leaf.backgroundColor) {\n       el = <span style={{ backgroundColor: leaf.backgroundColor }}>{el}</span>;\n     }\n     \n     return <span {...attributes}>{el}</span>;\n   }, []);\n   ```\n3. Implement color picker component for text and background colors\n4. Add utility functions to get current text styling",
+        "testStrategy": "Test application of different text sizes. Verify color picker functionality for text and background colors. Test combination of multiple text styles. Ensure styles are properly serialized and deserialized.",
+        "priority": "medium",
+        "dependencies": [
+          9,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Note List Component",
+        "description": "Create a slide-out note list component showing titles and modification dates with delete buttons.",
+        "details": "1. Create a slide-out sidebar component:\n   ```tsx\n   // components/NoteList.tsx\n   import React from 'react';\n   import { format } from 'date-fns';\n   \n   export default function NoteList({ notes, onSelect, onDelete, isOpen, onClose }) {\n     return (\n       <div className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} z-20`}>\n         <div className=\"flex justify-between items-center p-4 border-b\">\n           <h2 className=\"font-bold\">My Notes</h2>\n           <button onClick={onClose} className=\"p-2\">\n             &times;\n           </button>\n         </div>\n         \n         <div className=\"overflow-y-auto h-[calc(100%-4rem)]\">\n           {notes.length === 0 ? (\n             <p className=\"p-4 text-gray-500\">No notes yet</p>\n           ) : (\n             <ul>\n               {notes.map(note => (\n                 <li key={note._id} className=\"border-b\">\n                   <div className=\"flex justify-between p-4\">\n                     <button\n                       className=\"text-left flex-1 truncate\"\n                       onClick={() => onSelect(note._id)}\n                     >\n                       <div className=\"font-medium\">{note.title || 'Untitled'}</div>\n                       <div className=\"text-xs text-gray-500\">\n                         {format(new Date(note.updatedAt), 'MMM d, yyyy h:mm a')}\n                       </div>\n                     </button>\n                     <button\n                       onClick={() => onDelete(note._id)}\n                       className=\"text-red-500 p-2\"\n                     >\n                       Delete\n                     </button>\n                   </div>\n                 </li>\n               ))}\n             </ul>\n           )}\n         </div>\n       </div>\n     );\n   }\n   ```\n2. Add overlay backdrop when sidebar is open\n3. Implement note selection functionality\n4. Add confirmation dialog for note deletion",
+        "testStrategy": "Test sidebar open/close functionality. Verify note selection updates the editor content. Test delete functionality with confirmation. Ensure sidebar is responsive on different screen sizes.",
+        "priority": "medium",
+        "dependencies": [
+          6,
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Main Layout and Navigation",
+        "description": "Implement the main app layout with fixed header, editor toolbar, and hamburger menu for note list toggle.",
+        "details": "1. Create main layout component:\n   ```tsx\n   // components/Layout.tsx\n   import React, { useState } from 'react';\n   import { useUser } from '@clerk/nextjs';\n   import Link from 'next/link';\n   \n   export default function Layout({ children }) {\n     const { user, isSignedIn } = useUser();\n     const [isSidebarOpen, setIsSidebarOpen] = useState(false);\n     \n     return (\n       <div className=\"min-h-screen flex flex-col\">\n         <header className=\"bg-white shadow-sm sticky top-0 z-10\">\n           <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\">\n             <div className=\"flex justify-between h-16\">\n               <div className=\"flex\">\n                 <button\n                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}\n                   className=\"inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500\"\n                 >\n                   <span className=\"sr-only\">Open sidebar</span>\n                   {/* Hamburger icon */}\n                   <svg className=\"h-6 w-6\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\">\n                     <path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M4 6h16M4 12h16M4 18h16\" />\n                   </svg>\n                 </button>\n                 <div className=\"flex-shrink-0 flex items-center ml-4\">\n                   <span className=\"text-xl font-bold\">B Note</span>\n                 </div>\n               </div>\n               <div className=\"flex items-center\">\n                 <WeatherButton />\n                 {isSignedIn ? (\n                   <div className=\"ml-4 flex items-center\">\n                     <img\n                       className=\"h-8 w-8 rounded-full\"\n                       src={user.profileImageUrl}\n                       alt={user.fullName}\n                     />\n                     <button\n                       onClick={() => window.location.href = '/sign-out'}\n                       className=\"ml-4 text-sm text-gray-500 hover:text-gray-700\"\n                     >\n                       Sign out\n                     </button>\n                   </div>\n                 ) : (\n                   <Link href=\"/sign-in\" className=\"text-sm text-gray-500 hover:text-gray-700\">\n                     Sign in\n                   </Link>\n                 )}\n               </div>\n             </div>\n           </div>\n         </header>\n         \n         <main className=\"flex-1\">\n           {children}\n         </main>\n       </div>\n     );\n   }\n   ```\n2. Create a context for sidebar state management\n3. Implement responsive design for mobile and tablet\n4. Add transition animations for smooth UI interactions",
+        "testStrategy": "Test responsive layout on different screen sizes. Verify header stays fixed during scrolling. Test hamburger menu toggle functionality. Ensure user profile information displays correctly when logged in.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Weather Animation Component",
+        "description": "Implement weather animation button with cycling through rain, snow, sunny, cloudy, and night modes.",
+        "details": "1. Create weather button component:\n   ```tsx\n   // components/WeatherButton.tsx\n   import React, { useState, useContext } from 'react';\n   import { ThemeContext } from '../contexts/ThemeContext';\n   \n   const weatherTypes = ['sunny', 'cloudy', 'rain', 'snow', 'night'];\n   \n   export default function WeatherButton({ onWeatherChange }) {\n     const [currentWeather, setCurrentWeather] = useState('sunny');\n     const { setTheme } = useContext(ThemeContext);\n     \n     const cycleWeather = () => {\n       const currentIndex = weatherTypes.indexOf(currentWeather);\n       const nextIndex = (currentIndex + 1) % weatherTypes.length;\n       const nextWeather = weatherTypes[nextIndex];\n       \n       setCurrentWeather(nextWeather);\n       \n       // Set dark mode when night is selected\n       if (nextWeather === 'night') {\n         setTheme('dark');\n       } else {\n         setTheme('light');\n       }\n       \n       if (onWeatherChange) {\n         onWeatherChange(nextWeather);\n       }\n     };\n     \n     return (\n       <button\n         onClick={cycleWeather}\n         className=\"p-2 rounded-full hover:bg-gray-100\"\n         aria-label={`Current weather: ${currentWeather}. Click to change.`}\n       >\n         {currentWeather === 'sunny' && (\n           <svg className=\"w-6 h-6 text-yellow-500\" fill=\"currentColor\" viewBox=\"0 0 20 20\">\n             {/* Sun icon */}\n             <path fillRule=\"evenodd\" d=\"M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z\" clipRule=\"evenodd\" />\n           </svg>\n         )}\n         {/* Add other weather icons */}\n       </button>\n     );\n   }\n   ```\n2. Create CSS animations for each weather type:\n   ```css\n   /* styles/weather.css */\n   .rain-animation {\n     position: relative;\n     overflow: hidden;\n   }\n   \n   .rain-animation::before {\n     content: '';\n     position: absolute;\n     top: -100px;\n     left: 0;\n     width: 100%;\n     height: calc(100% + 100px);\n     background: linear-gradient(to bottom, transparent, transparent);\n     animation: rain 1s linear infinite;\n     background-image: repeating-linear-gradient(\n       to bottom,\n       transparent,\n       transparent 10px,\n       #ccc 10px,\n       #ccc 12px\n     );\n     opacity: 0.3;\n   }\n   \n   @keyframes rain {\n     0% { transform: translateY(0); }\n     100% { transform: translateY(100px); }\n   }\n   ```\n3. Create a theme context for dark mode toggle\n4. Implement Canvas-based animations for more complex weather effects",
+        "testStrategy": "Test weather cycling through all states. Verify dark mode toggle when night is selected. Test animation performance on mobile devices. Ensure weather state is saved with notes.",
+        "priority": "medium",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Auto-Save Functionality",
+        "description": "Implement auto-save functionality that syncs with the server after 2 seconds of inactivity.",
+        "details": "1. Create a custom hook for auto-saving:\n   ```typescript\n   // hooks/useAutoSave.ts\n   import { useEffect, useRef } from 'react';\n   \n   export function useAutoSave(value, onSave, delay = 2000) {\n     const timeoutRef = useRef(null);\n     const previousValueRef = useRef(value);\n     \n     useEffect(() => {\n       // Skip initial render and when value hasn't changed\n       if (JSON.stringify(previousValueRef.current) === JSON.stringify(value)) {\n         return;\n       }\n       \n       // Clear existing timeout\n       if (timeoutRef.current) {\n         clearTimeout(timeoutRef.current);\n       }\n       \n       // Set new timeout\n       timeoutRef.current = setTimeout(() => {\n         onSave(value);\n       }, delay);\n       \n       previousValueRef.current = value;\n       \n       // Cleanup on unmount\n       return () => {\n         if (timeoutRef.current) {\n           clearTimeout(timeoutRef.current);\n         }\n       };\n     }, [value, onSave, delay]);\n   }\n   ```\n2. Integrate auto-save with the editor:\n   ```tsx\n   // pages/notes/[id].tsx\n   function NoteEditor({ noteId }) {\n     const [note, setNote] = useState(null);\n     const [content, setContent] = useState(null);\n     \n     // Fetch note data...\n     \n     const saveNote = async (newContent) => {\n       try {\n         setIsSaving(true);\n         const response = await fetch(`/api/notes/${noteId}`, {\n           method: 'PATCH',\n           headers: { 'Content-Type': 'application/json' },\n           body: JSON.stringify({ content: newContent })\n         });\n         \n         if (response.ok) {\n           const updatedNote = await response.json();\n           setNote(updatedNote);\n         }\n       } catch (error) {\n         console.error('Error saving note:', error);\n       } finally {\n         setIsSaving(false);\n       }\n     };\n     \n     useAutoSave(content, saveNote);\n     \n     // Render editor...\n   }\n   ```\n3. Add visual indicator for saving status\n4. Implement error handling for failed saves",
+        "testStrategy": "Test auto-save triggers after 2 seconds of inactivity. Verify save indicator shows correct status. Test error handling when network is unavailable. Ensure content is properly saved to the server.",
+        "priority": "high",
+        "dependencies": [
+          7,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "IndexedDB Setup for Offline Storage",
+        "description": "Set up IndexedDB for local storage of notes to enable offline functionality.",
+        "details": "1. Create IndexedDB utility:\n   ```typescript\n   // utils/indexedDB.ts\n   export async function openDB() {\n     return new Promise((resolve, reject) => {\n       const request = indexedDB.open('BNoteDB', 1);\n       \n       request.onerror = () => reject(request.error);\n       request.onsuccess = () => resolve(request.result);\n       \n       request.onupgradeneeded = (event) => {\n         const db = request.result;\n         if (!db.objectStoreNames.contains('notes')) {\n           const store = db.createObjectStore('notes', { keyPath: '_id' });\n           store.createIndex('userId', 'userId', { unique: false });\n           store.createIndex('updatedAt', 'updatedAt', { unique: false });\n         }\n       };\n     });\n   }\n   \n   export async function saveNoteToIndexedDB(note) {\n     const db = await openDB();\n     return new Promise((resolve, reject) => {\n       const transaction = db.transaction('notes', 'readwrite');\n       const store = transaction.objectStore('notes');\n       const request = store.put(note);\n       \n       request.onerror = () => reject(request.error);\n       request.onsuccess = () => resolve(request.result);\n     });\n   }\n   \n   export async function getNoteFromIndexedDB(noteId) {\n     const db = await openDB();\n     return new Promise((resolve, reject) => {\n       const transaction = db.transaction('notes', 'readonly');\n       const store = transaction.objectStore('notes');\n       const request = store.get(noteId);\n       \n       request.onerror = () => reject(request.error);\n       request.onsuccess = () => resolve(request.result);\n     });\n   }\n   \n   export async function getAllNotesFromIndexedDB(userId) {\n     const db = await openDB();\n     return new Promise((resolve, reject) => {\n       const transaction = db.transaction('notes', 'readonly');\n       const store = transaction.objectStore('notes');\n       const index = store.index('userId');\n       const request = index.getAll(userId);\n       \n       request.onerror = () => reject(request.error);\n       request.onsuccess = () => resolve(request.result);\n     });\n   }\n   \n   export async function deleteNoteFromIndexedDB(noteId) {\n     const db = await openDB();\n     return new Promise((resolve, reject) => {\n       const transaction = db.transaction('notes', 'readwrite');\n       const store = transaction.objectStore('notes');\n       const request = store.delete(noteId);\n       \n       request.onerror = () => reject(request.error);\n       request.onsuccess = () => resolve(request.result);\n     });\n   }\n   ```\n2. Create a data access layer that tries server first, falls back to IndexedDB\n3. Implement version control for schema migrations\n4. Add utility for clearing outdated cache",
+        "testStrategy": "Test IndexedDB operations in browsers that support it. Verify data persistence across page refreshes. Test database schema upgrades. Ensure proper error handling when IndexedDB is not supported.",
+        "priority": "high",
+        "dependencies": [
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Offline Synchronization",
+        "description": "Implement Background Sync API for synchronizing offline changes when network is restored.",
+        "details": "1. Create a sync manager utility:\n   ```typescript\n   // utils/syncManager.ts\n   import { saveNoteToIndexedDB, getAllNotesFromIndexedDB } from './indexedDB';\n   \n   // Queue for tracking pending sync operations\n   let syncQueue = [];\n   \n   export function addToSyncQueue(operation) {\n     syncQueue.push(operation);\n     saveSyncQueueToStorage();\n     registerSyncEvent();\n   }\n   \n   function saveSyncQueueToStorage() {\n     localStorage.setItem('syncQueue', JSON.stringify(syncQueue));\n   }\n   \n   function loadSyncQueueFromStorage() {\n     const queue = localStorage.getItem('syncQueue');\n     if (queue) {\n       syncQueue = JSON.parse(queue);\n     }\n   }\n   \n   async function registerSyncEvent() {\n     if ('serviceWorker' in navigator && 'SyncManager' in window) {\n       const registration = await navigator.serviceWorker.ready;\n       try {\n         await registration.sync.register('notes-sync');\n       } catch (err) {\n         console.error('Background sync registration failed:', err);\n       }\n     } else {\n       // Fall back to immediate sync attempt if Background Sync not supported\n       syncNotes();\n     }\n   }\n   \n   export async function syncNotes() {\n     if (syncQueue.length === 0) {\n       loadSyncQueueFromStorage();\n     }\n     \n     if (syncQueue.length === 0) return;\n     \n     // Check if we're online\n     if (!navigator.onLine) return;\n     \n     const operations = [...syncQueue];\n     syncQueue = [];\n     saveSyncQueueToStorage();\n     \n     for (const op of operations) {\n       try {\n         if (op.type === 'create' || op.type === 'update') {\n           const response = await fetch(`/api/notes${op.id ? `/${op.id}` : ''}`, {\n             method: op.type === 'create' ? 'POST' : 'PATCH',\n             headers: { 'Content-Type': 'application/json' },\n             body: JSON.stringify(op.data)\n           });\n           \n           if (response.ok) {\n             const serverNote = await response.json();\n             await saveNoteToIndexedDB(serverNote);\n           } else {\n             // Re-queue failed operation\n             addToSyncQueue(op);\n           }\n         } else if (op.type === 'delete') {\n           await fetch(`/api/notes/${op.id}`, { method: 'DELETE' });\n         }\n       } catch (error) {\n         console.error('Sync operation failed:', error);\n         // Re-queue failed operation\n         addToSyncQueue(op);\n       }\n     }\n   }\n   \n   // Initialize\n   export function initSyncManager() {\n     loadSyncQueueFromStorage();\n     \n     // Listen for online events\n     window.addEventListener('online', () => {\n       syncNotes();\n     });\n     \n     // Try initial sync\n     if (navigator.onLine) {\n       syncNotes();\n     }\n   }\n   ```\n2. Update service worker to handle sync events:\n   ```javascript\n   // public/service-worker.js\n   self.addEventListener('sync', (event) => {\n     if (event.tag === 'notes-sync') {\n       event.waitUntil(syncNotes());\n     }\n   });\n   \n   async function syncNotes() {\n     // Implementation similar to syncNotes in syncManager.ts\n     // but adapted for service worker context\n   }\n   ```\n3. Implement conflict resolution strategy\n4. Add retry mechanism with exponential backoff",
+        "testStrategy": "Test offline creation and editing of notes. Verify synchronization when network is restored. Test conflict resolution with concurrent edits. Ensure sync queue persists across browser restarts.",
+        "priority": "medium",
+        "dependencies": [
+          17
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Conflict Resolution",
+        "description": "Implement conflict resolution for handling concurrent edits from multiple devices.",
+        "details": "1. Add timestamp-based conflict detection:\n   ```typescript\n   // utils/conflictResolver.ts\n   export function detectConflict(localNote, serverNote) {\n     // If server note is newer and content differs, we have a conflict\n     if (\n       new Date(serverNote.updatedAt) > new Date(localNote.updatedAt) &&\n       JSON.stringify(serverNote.content) !== JSON.stringify(localNote.content)\n     ) {\n       return true;\n     }\n     return false;\n   }\n   \n   export function mergeNotes(localNote, serverNote) {\n     // Simple merge strategy: take the newer content\n     if (new Date(serverNote.updatedAt) > new Date(localNote.updatedAt)) {\n       return { ...localNote, content: serverNote.content, updatedAt: serverNote.updatedAt };\n     }\n     return localNote;\n   }\n   ```\n2. Create a conflict resolution UI:\n   ```tsx\n   // components/ConflictResolver.tsx\n   import React, { useState } from 'react';\n   \n   export default function ConflictResolver({ localNote, serverNote, onResolve }) {\n     const [selectedVersion, setSelectedVersion] = useState('server');\n     \n     const handleResolve = () => {\n       onResolve(selectedVersion === 'server' ? serverNote : localNote);\n     };\n     \n     return (\n       <div className=\"fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50\">\n         <div className=\"bg-white p-6 rounded-lg max-w-lg w-full\">\n           <h2 className=\"text-xl font-bold mb-4\">Conflict Detected</h2>\n           <p className=\"mb-4\">This note has been modified in another location. Choose which version to keep:</p>\n           \n           <div className=\"mb-4\">\n             <label className=\"flex items-center mb-2\">\n               <input\n                 type=\"radio\"\n                 name=\"version\"\n                 value=\"server\"\n                 checked={selectedVersion === 'server'}\n                 onChange={() => setSelectedVersion('server')}\n                 className=\"mr-2\"\n               />\n               <span>\n                 Server version (last edited {new Date(serverNote.updatedAt).toLocaleString()})\n               </span>\n             </label>\n             \n             <label className=\"flex items-center\">\n               <input\n                 type=\"radio\"\n                 name=\"version\"\n                 value=\"local\"\n                 checked={selectedVersion === 'local'}\n                 onChange={() => setSelectedVersion('local')}\n                 className=\"mr-2\"\n               />\n               <span>\n                 Your version (last edited {new Date(localNote.updatedAt).toLocaleString()})\n               </span>\n             </label>\n           </div>\n           \n           <div className=\"flex justify-end\">\n             <button\n               onClick={handleResolve}\n               className=\"px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600\"\n             >\n               Resolve Conflict\n             </button>\n           </div>\n         </div>\n       </div>\n     );\n   }\n   ```\n3. Integrate conflict detection into sync process\n4. Implement diff visualization for conflicting changes",
+        "testStrategy": "Test conflict detection with various scenarios. Verify conflict resolution UI displays correctly. Test merging of conflicting notes. Ensure resolved conflicts are properly saved and synchronized.",
+        "priority": "medium",
+        "dependencies": [
+          18
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Service Worker and PWA Setup",
+        "description": "Set up service worker with Workbox for PWA capabilities and offline resource caching.",
+        "details": "1. Install Workbox and configure Next.js for PWA:\n   ```bash\n   npm install next-pwa workbox-window\n   ```\n2. Create a custom `next.config.js`:\n   ```javascript\n   const withPWA = require('next-pwa')({\n     dest: 'public',\n     disable: process.env.NODE_ENV === 'development',\n     register: true,\n     skipWaiting: true,\n   });\n   \n   module.exports = withPWA({\n     // other Next.js config\n   });\n   ```\n3. Create manifest.json in public folder:\n   ```json\n   {\n     \"name\": \"B Note\",\n     \"short_name\": \"B Note\",\n     \"description\": \"A rich text note-taking app with offline capabilities\",\n     \"start_url\": \"/\",\n     \"display\": \"standalone\",\n     \"background_color\": \"#ffffff\",\n     \"theme_color\": \"#3b82f6\",\n     \"icons\": [\n       {\n         \"src\": \"/icons/icon-192x192.png\",\n         \"sizes\": \"192x192\",\n         \"type\": \"image/png\"\n       },\n       {\n         \"src\": \"/icons/icon-512x512.png\",\n         \"sizes\": \"512x512\",\n         \"type\": \"image/png\"\n       }\n     ]\n   }\n   ```\n4. Add service worker registration in _app.tsx:\n   ```tsx\n   import { useEffect } from 'react';\n   import { Workbox } from 'workbox-window';\n   \n   function MyApp({ Component, pageProps }) {\n     useEffect(() => {\n       if ('serviceWorker' in navigator) {\n         const wb = new Workbox('/sw.js');\n         wb.register();\n       }\n     }, []);\n     \n     // Rest of _app.tsx\n   }\n   ```\n5. Configure caching strategies for API routes and static assets",
+        "testStrategy": "Test PWA installation on mobile devices. Verify offline access to previously visited pages. Test caching of static assets. Ensure service worker updates properly when new versions are deployed.",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Responsive Design Implementation",
+        "description": "Implement responsive design for optimal display on mobile and tablet devices.",
+        "details": "1. Add responsive viewport meta tag in _document.tsx:\n   ```tsx\n   // pages/_document.tsx\n   import Document, { Html, Head, Main, NextScript } from 'next/document';\n   \n   class MyDocument extends Document {\n     render() {\n       return (\n         <Html lang=\"en\">\n           <Head>\n             <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\n             <link rel=\"manifest\" href=\"/manifest.json\" />\n             <meta name=\"theme-color\" content=\"#3b82f6\" />\n           </Head>\n           <body>\n             <Main />\n             <NextScript />\n           </body>\n         </Html>\n       );\n     }\n   }\n   \n   export default MyDocument;\n   ```\n2. Create responsive utility classes with Tailwind:\n   ```javascript\n   // tailwind.config.js\n   module.exports = {\n     theme: {\n       extend: {\n         screens: {\n           'xs': '375px',\n         },\n       },\n     },\n     variants: {\n       extend: {},\n     },\n     plugins: [],\n   };\n   ```\n3. Implement responsive layouts for all components:\n   ```tsx\n   // Example responsive component\n   <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\">\n     {/* Content */}\n   </div>\n   ```\n4. Add touch-friendly UI elements with appropriate sizing:\n   ```css\n   .touch-target {\n     min-width: 44px;\n     min-height: 44px;\n   }\n   ```\n5. Test and optimize for various screen sizes and orientations",
+        "testStrategy": "Test layout on various device sizes (mobile, tablet, desktop). Verify touch targets are appropriately sized. Test orientation changes on mobile devices. Ensure no horizontal scrolling occurs on mobile.",
+        "priority": "high",
+        "dependencies": [
+          14
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Accessibility Implementation",
+        "description": "Implement WCAG AA compliance for accessibility across the application.",
+        "details": "1. Add proper ARIA attributes to interactive elements:\n   ```tsx\n   <button\n     aria-label=\"Create new note\"\n     aria-pressed={isActive}\n     className=\"...\"\n   >\n     {/* Icon */}\n   </button>\n   ```\n2. Ensure proper keyboard navigation:\n   ```tsx\n   // Add keyboard event handlers\n   const handleKeyDown = (e) => {\n     if (e.key === 'Enter' || e.key === ' ') {\n       e.preventDefault();\n       onClick();\n     }\n   };\n   \n   <div\n     role=\"button\"\n     tabIndex={0}\n     onClick={onClick}\n     onKeyDown={handleKeyDown}\n   >\n     {/* Content */}\n   </div>\n   ```\n3. Implement focus management:\n   ```tsx\n   const buttonRef = useRef(null);\n   \n   useEffect(() => {\n     if (isOpen) {\n       buttonRef.current?.focus();\n     }\n   }, [isOpen]);\n   ```\n4. Add skip links for keyboard users:\n   ```tsx\n   <a\n     href=\"#main-content\"\n     className=\"sr-only focus:not-sr-only focus:absolute focus:p-4 focus:bg-white focus:z-50\"\n   >\n     Skip to main content\n   </a>\n   ```\n5. Ensure sufficient color contrast:\n   ```css\n   /* High contrast text */\n   .text-high-contrast {\n     color: #1a202c; /* Dark gray on white background */\n   }\n   ```\n6. Add screen reader announcements for dynamic content:\n   ```tsx\n   const [announcement, setAnnouncement] = useState('');\n   \n   // When saving completes\n   useEffect(() => {\n     if (!isSaving && wasSaving) {\n       setAnnouncement('Note saved successfully');\n     }\n   }, [isSaving, wasSaving]);\n   \n   return (\n     <>\n       {/* Component content */}\n       <div\n         role=\"status\"\n         aria-live=\"polite\"\n         className=\"sr-only\"\n       >\n         {announcement}\n       </div>\n     </>\n   );\n   ```",
+        "testStrategy": "Test with screen readers (NVDA, VoiceOver). Verify keyboard navigation works for all interactive elements. Test color contrast with accessibility tools. Ensure all images have appropriate alt text.",
+        "priority": "medium",
+        "dependencies": [
+          14,
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Performance Optimization",
+        "description": "Optimize application performance to meet requirements of first paint within 1 second and editing delay under 100ms.",
+        "details": "1. Implement code splitting with dynamic imports:\n   ```tsx\n   import dynamic from 'next/dynamic';\n   \n   const DynamicEditor = dynamic(() => import('../components/Editor/SlateEditor'), {\n     loading: () => <div className=\"h-64 w-full bg-gray-100 animate-pulse\"></div>,\n     ssr: false // Disable server-side rendering for editor\n   });\n   ```\n2. Add memoization for expensive components:\n   ```tsx\n   const MemoizedComponent = React.memo(MyComponent, (prevProps, nextProps) => {\n     return prevProps.id === nextProps.id;\n   });\n   ```\n3. Implement virtualized list for note list:\n   ```tsx\n   import { FixedSizeList } from 'react-window';\n   \n   function NoteList({ notes, onSelect }) {\n     const Row = ({ index, style }) => {\n       const note = notes[index];\n       return (\n         <div style={style} className=\"border-b p-4\">\n           <button onClick={() => onSelect(note._id)}>{note.title}</button>\n         </div>\n       );\n     };\n     \n     return (\n       <FixedSizeList\n         height={500}\n         width=\"100%\"\n         itemCount={notes.length}\n         itemSize={64}\n       >\n         {Row}\n       </FixedSizeList>\n     );\n   }\n   ```\n4. Optimize Slate.js editor performance:\n   ```tsx\n   // Debounce content changes\n   const debouncedOnChange = useCallback(\n     debounce((value) => {\n       onChange(value);\n     }, 100),\n     [onChange]\n   );\n   ```\n5. Add preloading for critical resources:\n   ```html\n   <link rel=\"preload\" href=\"/fonts/inter.woff2\" as=\"font\" type=\"font/woff2\" crossorigin />\n   ```\n6. Implement lazy loading for images:\n   ```tsx\n   <img loading=\"lazy\" src=\"...\" alt=\"...\" />\n   ```",
+        "testStrategy": "Measure first contentful paint with Lighthouse. Test editor responsiveness with performance profiling. Verify bundle size optimization with webpack-bundle-analyzer. Test performance on low-end mobile devices.",
+        "priority": "high",
+        "dependencies": [
+          9,
+          14,
+          20
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Security Implementation",
+        "description": "Implement security measures including TLS, CSRF protection, and XSS prevention.",
+        "details": "1. Configure secure headers with Next.js:\n   ```javascript\n   // next.config.js\n   const securityHeaders = [\n     {\n       key: 'X-XSS-Protection',\n       value: '1; mode=block'\n     },\n     {\n       key: 'X-Content-Type-Options',\n       value: 'nosniff'\n     },\n     {\n       key: 'X-Frame-Options',\n       value: 'SAMEORIGIN'\n     },\n     {\n       key: 'Referrer-Policy',\n       value: 'origin-when-cross-origin'\n     },\n     {\n       key: 'Content-Security-Policy',\n       value: \"default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;\"\n     }\n   ];\n   \n   module.exports = {\n     async headers() {\n       return [\n         {\n           source: '/(.*)',\n           headers: securityHeaders,\n         },\n       ];\n     },\n   };\n   ```\n2. Implement CSRF protection:\n   ```typescript\n   // middleware.ts\n   import { NextResponse } from 'next/server';\n   import type { NextRequest } from 'next/server';\n   \n   export function middleware(request: NextRequest) {\n     // Only apply to API routes that modify data\n     if (\n       request.nextUrl.pathname.startsWith('/api/') &&\n       ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method)\n     ) {\n       const referer = request.headers.get('referer');\n       const origin = request.headers.get('origin');\n       \n       // Check if request is coming from our own site\n       if (!referer || !origin || !referer.startsWith(origin)) {\n         return new NextResponse(JSON.stringify({ error: 'Invalid CSRF token' }), {\n           status: 403,\n           headers: { 'Content-Type': 'application/json' }\n         });\n       }\n     }\n     \n     return NextResponse.next();\n   }\n   ```\n3. Sanitize user input to prevent XSS:\n   ```typescript\n   import DOMPurify from 'dompurify';\n   \n   function sanitizeInput(input) {\n     return typeof input === 'string' ? DOMPurify.sanitize(input) : input;\n   }\n   \n   // Use when saving user input\n   const sanitizedTitle = sanitizeInput(req.body.title);\n   ```\n4. Implement rate limiting for API routes:\n   ```typescript\n   import rateLimit from 'express-rate-limit';\n   \n   const limiter = rateLimit({\n     windowMs: 15 * 60 * 1000, // 15 minutes\n     max: 100, // limit each IP to 100 requests per windowMs\n   });\n   \n   export default function handler(req, res) {\n     return limiter(req, res, () => {\n       // API route logic\n     });\n   }\n   ```",
+        "testStrategy": "Test CSRF protection by sending requests without proper headers. Verify XSS prevention by attempting to inject malicious scripts. Test rate limiting by sending multiple requests. Scan application with security tools like OWASP ZAP.",
+        "priority": "high",
+        "dependencies": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Integration Testing and Deployment",
+        "description": "Set up comprehensive testing and deployment pipeline for the application.",
+        "details": "1. Set up Jest and React Testing Library:\n   ```bash\n   npm install --save-dev jest @testing-library/react @testing-library/jest-dom jest-environment-jsdom\n   ```\n2. Configure Jest in package.json:\n   ```json\n   {\n     \"jest\": {\n       \"testEnvironment\": \"jsdom\",\n       \"setupFilesAfterEnv\": [\"<rootDir>/jest.setup.js\"],\n       \"moduleNameMapper\": {\n         \"^@/components/(.*)$\": \"<rootDir>/components/$1\",\n         \"^@/pages/(.*)$\": \"<rootDir>/pages/$1\",\n         \"^@/hooks/(.*)$\": \"<rootDir>/hooks/$1\",\n         \"^@/utils/(.*)$\": \"<rootDir>/utils/$1\"\n       }\n     }\n   }\n   ```\n3. Create test for editor component:\n   ```typescript\n   // __tests__/components/Editor.test.tsx\n   import { render, screen, fireEvent } from '@testing-library/react';\n   import SlateEditor from '@/components/Editor/SlateEditor';\n   \n   describe('SlateEditor', () => {\n     it('renders editor with placeholder', () => {\n       render(<SlateEditor value={null} onChange={() => {}} />);\n       expect(screen.getByPlaceholderText('Start writing...')).toBeInTheDocument();\n     });\n     \n     it('calls onChange when content changes', () => {\n       const handleChange = jest.fn();\n       render(<SlateEditor value={null} onChange={handleChange} />);\n       \n       const editor = screen.getByPlaceholderText('Start writing...');\n       fireEvent.input(editor, { target: { textContent: 'Hello world' } });\n       \n       expect(handleChange).toHaveBeenCalled();\n     });\n   });\n   ```\n4. Set up Cypress for E2E testing:\n   ```bash\n   npm install --save-dev cypress\n   ```\n5. Create Cypress test for note creation:\n   ```javascript\n   // cypress/integration/note.spec.js\n   describe('Note Creation', () => {\n     beforeEach(() => {\n       cy.login(); // Custom command for authentication\n       cy.visit('/');\n     });\n     \n     it('creates a new note', () => {\n       cy.get('[data-testid=new-note-button]').click();\n       cy.get('[data-testid=note-title-input]').type('Test Note');\n       cy.get('[data-testid=note-editor]').type('This is a test note');\n       \n       // Wait for auto-save\n       cy.wait(2500);\n       \n       // Verify note appears in list\n       cy.get('[data-testid=note-list]').should('contain', 'Test Note');\n     });\n   });\n   ```\n6. Set up GitHub Actions for CI/CD:\n   ```yaml\n   # .github/workflows/ci.yml\n   name: CI/CD\n   \n   on:\n     push:\n       branches: [main]\n     pull_request:\n       branches: [main]\n   \n   jobs:\n     test:\n       runs-on: ubuntu-latest\n       steps:\n         - uses: actions/checkout@v2\n         - name: Use Node.js\n           uses: actions/setup-node@v2\n           with:\n             node-version: '16'\n         - name: Install dependencies\n           run: npm ci\n         - name: Run tests\n           run: npm test\n         - name: Run E2E tests\n           run: npm run cypress:run\n     \n     deploy:\n       needs: test\n       if: github.ref == 'refs/heads/main'\n       runs-on: ubuntu-latest\n       steps:\n         - uses: actions/checkout@v2\n         - name: Deploy to production\n           uses: amondnet/vercel-action@v20\n           with:\n             vercel-token: ${{ secrets.VERCEL_TOKEN }}\n             vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}\n             vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}\n             vercel-args: '--prod'\n   ```",
+        "testStrategy": "Run unit tests for all components. Execute end-to-end tests for critical user flows. Test deployment process to staging environment. Verify application works correctly after deployment.",
+        "priority": "medium",
+        "dependencies": [
+          23,
+          24
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-28T00:25:27.329Z",
+      "updated": "2025-06-28T08:27:05.625Z",
+      "description": "Tasks for master context"
+    }
+  },
+  "weather-motion": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Structure and State Management",
+        "description": "Initialize the project structure and implement state management for weather and dark mode using Zustand.",
+        "details": "1. Create a new React project using Create React App or Next.js\n2. Install dependencies: `npm install zustand @emotion/react @emotion/styled`\n3. Set up the project structure:\n   - src/\n     - components/\n     - store/\n     - styles/\n     - utils/\n4. Implement Zustand store:\n```javascript\n// src/store/weatherStore.js\nimport create from 'zustand'\n\nconst weatherCycle = ['rain', 'snow', 'sunny', 'cloudy', 'night']\n\nexport const useWeatherStore = create((set) => ({\n  currentWeather: 'sunny',\n  isDarkMode: false,\n  cycleWeather: () => set((state) => {\n    const currentIndex = weatherCycle.indexOf(state.currentWeather)\n    const nextWeather = weatherCycle[(currentIndex + 1) % weatherCycle.length]\n    const isDarkMode = nextWeather === 'night'\n    localStorage.setItem('darkMode', isDarkMode)\n    return { currentWeather: nextWeather, isDarkMode }\n  }),\n  setDarkMode: (isDark) => set({ isDarkMode: isDark }),\n}))\n```\n5. Create a theme provider using Emotion:\n```javascript\n// src/styles/theme.js\nimport { ThemeProvider } from '@emotion/react'\n\nconst lightTheme = {\n  background: '#ffffff',\n  text: '#000000',\n  // Add more theme variables\n}\n\nconst darkTheme = {\n  background: '#1a1a1a',\n  text: '#ffffff',\n  // Add more theme variables\n}\n\nexport const Theme = ({ children }) => {\n  const { isDarkMode } = useWeatherStore()\n  return (\n    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>\n      {children}\n    </ThemeProvider>\n  )\n}\n```",
+        "testStrategy": "1. Unit test Zustand store:\n   - Test initial state\n   - Test cycleWeather function\n   - Test setDarkMode function\n2. Integration test:\n   - Verify that the theme changes when isDarkMode is toggled\n3. E2E test:\n   - Simulate user interactions and verify state changes",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement Weather Button and Cycling Logic",
+        "description": "Create a weather button component that cycles through weather states and updates the global state.",
+        "details": "1. Create a WeatherButton component:\n```javascript\n// src/components/WeatherButton.js\nimport React from 'react'\nimport { useWeatherStore } from '../store/weatherStore'\nimport styled from '@emotion/styled'\n\nconst Button = styled.button`\n  // Add styles here\n`\n\nconst weatherEmojis = {\n  rain: '🌧️',\n  snow: '❄️',\n  sunny: '☀️',\n  cloudy: '☁️',\n  night: '🌙'\n}\n\nexport const WeatherButton = () => {\n  const { currentWeather, cycleWeather } = useWeatherStore()\n\n  return (\n    <Button onClick={cycleWeather} aria-label={`Current weather: ${currentWeather}. Click to change.`}>\n      {weatherEmojis[currentWeather]}\n    </Button>\n  )\n}\n```\n2. Implement keyboard navigation:\n   - Add `onKeyDown` event handler to support 'Enter' and 'Space' keys\n3. Ensure the button is properly styled and accessible\n4. Add the WeatherButton component to the main App component",
+        "testStrategy": "1. Unit test WeatherButton component:\n   - Test rendering with different weather states\n   - Test click event\n   - Test keyboard navigation\n2. Integration test:\n   - Verify that clicking the button updates the global state\n3. Accessibility test:\n   - Use tools like axe-core to verify WCAG AA compliance\n   - Test with screen readers to ensure proper announcements",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Design and Implement Weather Animations",
+        "description": "Create CSS animations for each weather state and implement smooth transitions between states.",
+        "details": "1. Create a separate CSS file for animations:\n```css\n/* src/styles/weatherAnimations.css */\n@keyframes rainAnimation {\n  /* Define rain animation */\n}\n\n@keyframes snowAnimation {\n  /* Define snow animation */\n}\n\n/* Add animations for other weather states */\n\n.weather-container {\n  position: relative;\n  overflow: hidden;\n}\n\n.weather-effect {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n}\n\n.rain {\n  animation: rainAnimation 1s linear infinite;\n}\n\n.snow {\n  animation: snowAnimation 5s linear infinite;\n}\n\n/* Add classes for other weather effects */\n```\n2. Create a WeatherAnimation component:\n```javascript\n// src/components/WeatherAnimation.js\nimport React from 'react'\nimport { useWeatherStore } from '../store/weatherStore'\nimport '../styles/weatherAnimations.css'\n\nexport const WeatherAnimation = () => {\n  const { currentWeather } = useWeatherStore()\n\n  return (\n    <div className=\"weather-container\">\n      <div className={`weather-effect ${currentWeather}`} />\n    </div>\n  )\n}\n```\n3. Implement smooth transitions:\n   - Use CSS transitions for background color changes\n   - Use React's `CSSTransition` component for entering/exiting animations\n4. Optimize for performance:\n   - Use `will-change` CSS property for hardware acceleration\n   - Limit the number of animated elements\n   - Use `requestAnimationFrame` for JavaScript animations if needed",
+        "testStrategy": "1. Visual regression testing:\n   - Use tools like Percy or Chromatic to capture and compare screenshots\n2. Performance testing:\n   - Use Chrome DevTools Performance tab to ensure 60fps\n   - Test on various devices, especially low-end mobile devices\n3. Cross-browser testing:\n   - Verify animations work correctly in Chrome, Firefox, Safari, and Edge",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implement Dark Mode and Theme Switching",
+        "description": "Create a system for switching between light and dark modes, with automatic activation for the night weather state.",
+        "details": "1. Extend the Zustand store to handle theme:\n```javascript\n// src/store/weatherStore.js\nexport const useWeatherStore = create((set) => ({\n  // ... existing code ...\n  toggleDarkMode: () => set((state) => {\n    const newDarkMode = !state.isDarkMode\n    localStorage.setItem('darkMode', newDarkMode)\n    return { isDarkMode: newDarkMode }\n  }),\n}))\n```\n2. Create a ThemeToggle component:\n```javascript\n// src/components/ThemeToggle.js\nimport React from 'react'\nimport { useWeatherStore } from '../store/weatherStore'\nimport styled from '@emotion/styled'\n\nconst ToggleButton = styled.button`\n  // Add styles here\n`\n\nexport const ThemeToggle = () => {\n  const { isDarkMode, toggleDarkMode } = useWeatherStore()\n\n  return (\n    <ToggleButton onClick={toggleDarkMode} aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}>\n      {isDarkMode ? '☀️' : '🌙'}\n    </ToggleButton>\n  )\n}\n```\n3. Update the main App component to use the theme:\n```javascript\n// src/App.js\nimport React, { useEffect } from 'react'\nimport { Global, css } from '@emotion/react'\nimport { useWeatherStore } from './store/weatherStore'\nimport { Theme } from './styles/theme'\nimport { WeatherButton } from './components/WeatherButton'\nimport { WeatherAnimation } from './components/WeatherAnimation'\nimport { ThemeToggle } from './components/ThemeToggle'\n\nconst App = () => {\n  const { isDarkMode, setDarkMode } = useWeatherStore()\n\n  useEffect(() => {\n    const savedDarkMode = localStorage.getItem('darkMode')\n    if (savedDarkMode !== null) {\n      setDarkMode(JSON.parse(savedDarkMode))\n    }\n  }, [])\n\n  return (\n    <Theme>\n      <Global\n        styles={theme => css`\n          body {\n            background-color: ${theme.background};\n            color: ${theme.text};\n            transition: background-color 0.3s, color 0.3s;\n          }\n        `}\n      />\n      <WeatherButton />\n      <WeatherAnimation />\n      <ThemeToggle />\n      {/* Add other components here */}\n    </Theme>\n  )\n}\n\nexport default App\n```\n4. Implement system theme detection:\n```javascript\n// src/utils/themeDetector.js\nexport const detectSystemTheme = () => {\n  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches\n}\n\nexport const listenForThemeChanges = (callback) => {\n  if (window.matchMedia) {\n    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')\n    mediaQuery.addListener((e) => callback(e.matches))\n  }\n}\n```\nUse these functions in the App component to set initial theme and listen for changes.",
+        "testStrategy": "1. Unit test theme switching logic:\n   - Test toggleDarkMode function\n   - Test system theme detection\n2. Integration test:\n   - Verify that changing weather to 'night' activates dark mode\n   - Verify that toggling theme manually works correctly\n3. E2E test:\n   - Simulate user changing system theme and verify app response\n4. Accessibility test:\n   - Verify color contrast ratios in both light and dark modes",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Implement Weather-specific UI Adjustments",
+        "description": "Create UI components and styles that change based on the current weather state, including background gradients and weather-specific elements.",
+        "details": "1. Create a WeatherBackground component:\n```javascript\n// src/components/WeatherBackground.js\nimport React from 'react'\nimport styled from '@emotion/styled'\nimport { useWeatherStore } from '../store/weatherStore'\n\nconst BackgroundContainer = styled.div`\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  transition: background 0.5s ease;\n  z-index: -1;\n`\n\nconst weatherGradients = {\n  rain: 'linear-gradient(to bottom, #4b6cb7, #182848)',\n  snow: 'linear-gradient(to bottom, #e6dada, #274046)',\n  sunny: 'linear-gradient(to bottom, #ff7e5f, #feb47b)',\n  cloudy: 'linear-gradient(to bottom, #bdc3c7, #2c3e50)',\n  night: 'linear-gradient(to bottom, #0f2027, #203a43, #2c5364)'\n}\n\nexport const WeatherBackground = () => {\n  const { currentWeather } = useWeatherStore()\n\n  return (\n    <BackgroundContainer\n      style={{ background: weatherGradients[currentWeather] }}\n    />\n  )\n}\n```\n2. Create weather-specific UI elements:\n```javascript\n// src/components/WeatherElements.js\nimport React from 'react'\nimport styled from '@emotion/styled'\nimport { useWeatherStore } from '../store/weatherStore'\n\nconst ElementContainer = styled.div`\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  pointer-events: none;\n`\n\nconst RainDrop = styled.div`\n  /* Style for rain drop */\n`\n\nconst Snowflake = styled.div`\n  /* Style for snowflake */\n`\n\nconst Sun = styled.div`\n  /* Style for sun */\n`\n\nconst Cloud = styled.div`\n  /* Style for cloud */\n`\n\nconst Star = styled.div`\n  /* Style for star */\n`\n\nexport const WeatherElements = () => {\n  const { currentWeather } = useWeatherStore()\n\n  const renderElements = () => {\n    switch (currentWeather) {\n      case 'rain':\n        return Array(100).fill().map((_, i) => <RainDrop key={i} />)\n      case 'snow':\n        return Array(50).fill().map((_, i) => <Snowflake key={i} />)\n      case 'sunny':\n        return <Sun />\n      case 'cloudy':\n        return Array(5).fill().map((_, i) => <Cloud key={i} />)\n      case 'night':\n        return Array(200).fill().map((_, i) => <Star key={i} />)\n      default:\n        return null\n    }\n  }\n\n  return <ElementContainer>{renderElements()}</ElementContainer>\n}\n```\n3. Update the main App component to include these new components:\n```javascript\n// src/App.js\nimport { WeatherBackground } from './components/WeatherBackground'\nimport { WeatherElements } from './components/WeatherElements'\n\nconst App = () => {\n  // ... existing code ...\n\n  return (\n    <Theme>\n      <WeatherBackground />\n      <WeatherElements />\n      {/* ... other components ... */}\n    </Theme>\n  )\n}\n```\n4. Optimize performance:\n   - Use React.memo for components that don't need frequent re-renders\n   - Use CSS transforms and opacity for animations instead of top/left properties\n   - Implement virtualization for large numbers of elements (e.g., raindrops, stars)",
+        "testStrategy": "1. Visual testing:\n   - Create snapshots for each weather state\n   - Use Percy or similar tools for visual regression testing\n2. Performance testing:\n   - Profile render times for each weather state\n   - Ensure smooth transitions between states\n3. Accessibility testing:\n   - Verify that weather elements don't interfere with screen readers or keyboard navigation\n4. Cross-device testing:\n   - Test on various screen sizes and device types",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement Local Storage and App-wide State Persistence",
+        "description": "Implement a system to save and restore the app's state, including current weather and dark mode preference, using local storage.",
+        "details": "1. Create a utility function for local storage operations:\n```javascript\n// src/utils/storage.js\nexport const storage = {\n  get: (key, defaultValue) => {\n    const value = localStorage.getItem(key)\n    return value !== null ? JSON.parse(value) : defaultValue\n  },\n  set: (key, value) => {\n    localStorage.setItem(key, JSON.stringify(value))\n  },\n  remove: (key) => {\n    localStorage.removeItem(key)\n  }\n}\n```\n2. Update the Zustand store to use local storage:\n```javascript\n// src/store/weatherStore.js\nimport create from 'zustand'\nimport { storage } from '../utils/storage'\n\nexport const useWeatherStore = create((set) => ({\n  currentWeather: storage.get('currentWeather', 'sunny'),\n  isDarkMode: storage.get('isDarkMode', false),\n  cycleWeather: () => set((state) => {\n    const currentIndex = weatherCycle.indexOf(state.currentWeather)\n    const nextWeather = weatherCycle[(currentIndex + 1) % weatherCycle.length]\n    const isDarkMode = nextWeather === 'night'\n    storage.set('currentWeather', nextWeather)\n    storage.set('isDarkMode', isDarkMode)\n    return { currentWeather: nextWeather, isDarkMode }\n  }),\n  setDarkMode: (isDark) => set(() => {\n    storage.set('isDarkMode', isDark)\n    return { isDarkMode: isDark }\n  }),\n}))\n```\n3. Implement a hook for syncing state with local storage:\n```javascript\n// src/hooks/useSyncLocalStorage.js\nimport { useEffect } from 'react'\nimport { useWeatherStore } from '../store/weatherStore'\nimport { storage } from '../utils/storage'\n\nexport const useSyncLocalStorage = () => {\n  const { setDarkMode } = useWeatherStore()\n\n  useEffect(() => {\n    const handleStorageChange = (e) => {\n      if (e.key === 'isDarkMode') {\n        setDarkMode(JSON.parse(e.newValue))\n      }\n    }\n\n    window.addEventListener('storage', handleStorageChange)\n    return () => window.removeEventListener('storage', handleStorageChange)\n  }, [setDarkMode])\n}\n```\n4. Use the hook in the main App component:\n```javascript\n// src/App.js\nimport { useSyncLocalStorage } from './hooks/useSyncLocalStorage'\n\nconst App = () => {\n  useSyncLocalStorage()\n\n  // ... rest of the component\n}\n```\n5. Implement error handling for local storage operations:\n```javascript\n// src/utils/storage.js\nexport const storage = {\n  get: (key, defaultValue) => {\n    try {\n      const value = localStorage.getItem(key)\n      return value !== null ? JSON.parse(value) : defaultValue\n    } catch (error) {\n      console.error(`Error reading ${key} from localStorage:`, error)\n      return defaultValue\n    }\n  },\n  set: (key, value) => {\n    try {\n      localStorage.setItem(key, JSON.stringify(value))\n    } catch (error) {\n      console.error(`Error writing ${key} to localStorage:`, error)\n    }\n  },\n  // ... rest of the methods\n}\n```",
+        "testStrategy": "1. Unit tests for storage utility:\n   - Test get, set, and remove operations\n   - Test error handling for invalid JSON\n   - Mock localStorage for testing\n2. Integration tests:\n   - Verify that app state is correctly saved to localStorage\n   - Verify that app state is correctly restored from localStorage\n3. E2E tests:\n   - Simulate app reload and verify state persistence\n   - Test syncing across multiple tabs\n4. Error handling tests:\n   - Simulate localStorage errors and verify graceful degradation",
+        "priority": "low",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-28T11:51:42.283Z",
+      "updated": "2025-06-28T12:01:30.818Z",
+      "description": "Tasks for weather-motion context"
+    }
+  },
+  "layout-navigation": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Structure and Dependencies",
+        "description": "Extend the existing B Note project with layout and navigation components and dependencies.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "details": "1. Install additional dependencies for layout components:\n   - Framer Motion v10.12.16\n   - React Icons v4.9.0\n2. Create layout-related folder structure:\n   src/\n   ├── components/\n   │   ├── Layout/\n   │   ├── Header/\n   │   ├── Toolbar/\n   │   ├── Sidebar/\n   │   └── MainContent/\n   ├── hooks/\n   ├── store/\n   │   └── navigationStore.ts (for Zustand navigation state management)\n   └── styles/\n3. Extend the existing Zustand store to handle navigation state\n4. Ensure compatibility with existing project setup (Next.js 15, TypeScript, Tailwind CSS 4.x)\n<info added on 2025-06-28T22:01:14.345Z>\n## Task Completion Report\n\nTask 1 has been completed successfully with the following accomplishments:\n\n1. Additional dependencies installed:\n   - framer-motion for animations\n   - react-icons for icon components\n\n2. Extended folder structure created:\n   - src/components/ui/ for common UI components\n   - Completed all planned layout component folders\n\n3. Navigation state management implemented:\n   - Created navigationStore.ts with TypeScript type definitions\n   - Added state management for sidebar, toolbar, search, and auto-save features\n\n4. Resolved build issues:\n   - Fixed type conflicts between NoteEditor.tsx and Editor.tsx\n   - Removed unnecessary ThemeToggle.tsx component\n   - Corrected all TypeScript errors\n   - Verified successful build\n\nPreparation for implementing the fixed header component is now complete.\n</info added on 2025-06-28T22:01:14.345Z>",
+        "testStrategy": "1. Verify all new dependencies are installed correctly and compatible with existing ones\n2. Ensure layout components folder structure is properly set up\n3. Validate that the navigation store integrates well with existing Zustand implementation\n4. Check if the project builds without errors after changes\n5. Test basic navigation state management functionality",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install additional layout dependencies",
+            "description": "Add Framer Motion and React Icons to the existing project",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create layout component folder structure",
+            "description": "Set up the folder structure for layout-related components",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement navigation state management",
+            "description": "Extend the existing Zustand store to handle navigation state",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Test integration with existing project",
+            "description": "Verify that new components and state management work with the existing B Note project",
+            "status": "done",
+            "dependencies": [],
+            "details": "",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Header Component",
+        "description": "Create the fixed header component with hamburger menu, app logo, and weather button.",
+        "details": "1. Create Header component in src/components/Header/\n2. Implement HamburgerMenu component using Framer Motion for smooth animation\n3. Create AppLogo component\n4. Integrate existing WeatherButton component\n5. Use Tailwind CSS for styling:\n   - Fixed positioning\n   - Responsive design for mobile and tablet\n   - Minimum touch area of 44x44px for interactive elements\n6. Implement z-index management to keep header on top\n7. Use React Icons for consistent iconography\n8. Ensure header remains fixed during scroll using CSS `position: fixed`\n\nExample Header component structure:\n```jsx\nimport { motion } from 'framer-motion';\nimport { FiMenu } from 'react-icons/fi';\n\nconst Header = ({ toggleSidebar }) => (\n  <header className=\"fixed top-0 left-0 right-0 h-16 bg-white shadow-md flex items-center justify-between px-4\">\n    <motion.button\n      className=\"p-2 rounded-full hover:bg-gray-200\"\n      whileTap={{ scale: 0.95 }}\n      onClick={toggleSidebar}\n    >\n      <FiMenu size={24} />\n    </motion.button>\n    <h1 className=\"text-xl font-bold\">B Note</h1>\n    <WeatherButton />\n  </header>\n);\n```",
+        "testStrategy": "1. Unit test Header component rendering\n2. Test responsiveness on various screen sizes\n3. Verify header remains fixed during scroll\n4. Ensure minimum touch area requirements are met\n5. Test hamburger menu click event\n6. Validate proper integration of WeatherButton component",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Develop Toolbar Component",
+        "description": "Create the editing toolbar with text formatting options, link insertion, and style controls.",
+        "details": "1. Create Toolbar component in src/components/Toolbar/\n2. Implement sub-components: FormatButtons, ListButtons, StyleButtons\n3. Use React Icons for toolbar icons\n4. Implement text formatting functions (bold, italic, underline, strikethrough)\n5. Add link insertion functionality\n6. Create buttons for block quote, horizontal line, bullet list, and numbered list\n7. Implement style controls (font size, text color, background color)\n8. Use Tailwind CSS for responsive design and styling\n9. Ensure minimum touch area of 44x44px for all buttons\n10. Implement tooltip functionality for button labels\n\nExample Toolbar component structure:\n```jsx\nimport { FiBold, FiItalic, FiUnderline, FiLink } from 'react-icons/fi';\n\nconst Toolbar = ({ onFormat, onInsertLink, onStyle }) => (\n  <div className=\"flex items-center space-x-2 p-2 bg-gray-100\">\n    <button\n      className=\"p-2 rounded hover:bg-gray-200\"\n      onClick={() => onFormat('bold')}\n    >\n      <FiBold size={20} />\n    </button>\n    {/* Add other formatting buttons */}\n    <button\n      className=\"p-2 rounded hover:bg-gray-200\"\n      onClick={onInsertLink}\n    >\n      <FiLink size={20} />\n    </button>\n    {/* Add style control buttons */}\n  </div>\n);\n```",
+        "testStrategy": "1. Unit test Toolbar component rendering\n2. Test each formatting button functionality\n3. Verify link insertion process\n4. Test list creation buttons\n5. Validate style control functions\n6. Ensure responsive design on various screen sizes\n7. Verify minimum touch area requirements\n8. Test tooltip functionality and accessibility",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implement Sidebar Component",
+        "description": "Create the slide-out sidebar with note list, search functionality, and new note button.",
+        "details": "1. Create Sidebar component in src/components/Sidebar/\n2. Implement NoteList, SearchBar, and NewNoteButton sub-components\n3. Use Framer Motion for smooth slide animation\n4. Implement note item display with title, modified date, and preview text\n5. Add swipe-to-delete functionality for note items\n6. Create search input field with real-time filtering\n7. Implement \"+ New Note\" button at the top of the list\n8. Use Zustand for managing sidebar open/close state\n9. Add semi-transparent overlay on main content when sidebar is open\n10. Ensure responsive design for mobile and tablet layouts\n\nExample Sidebar component structure:\n```jsx\nimport { motion } from 'framer-motion';\nimport { useStore } from '../store/sidebarStore';\n\nconst Sidebar = () => {\n  const isOpen = useStore(state => state.isOpen);\n  \n  return (\n    <motion.div\n      initial={{ x: '-100%' }}\n      animate={{ x: isOpen ? 0 : '-100%' }}\n      transition={{ type: 'spring', stiffness: 300, damping: 30 }}\n      className=\"fixed top-0 left-0 bottom-0 w-64 bg-white shadow-lg z-20\"\n    >\n      <SearchBar />\n      <NewNoteButton />\n      <NoteList />\n    </motion.div>\n  );\n};\n```",
+        "testStrategy": "1. Unit test Sidebar component rendering\n2. Test sidebar open/close animation\n3. Verify note list item display and formatting\n4. Test search functionality and real-time filtering\n5. Validate swipe-to-delete feature\n6. Ensure \"New Note\" button works correctly\n7. Test responsiveness on various screen sizes\n8. Verify overlay appearance and behavior",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Develop Main Content Area",
+        "description": "Implement the main editing area with auto-focus, scrolling, and responsive design.",
+        "details": "1. Create MainContent component in src/components/MainContent/\n2. Implement NoteEditor sub-component\n3. Create a rich text editor using a library like Draft.js or Quill\n4. Implement auto-focus on title field for new notes\n5. Ensure smooth scrolling for long content\n6. Use Tailwind CSS for responsive padding and layout\n7. Implement content state management using Zustand\n8. Handle keyboard shortcuts for common actions (Ctrl+B for bold, etc.)\n9. Ensure compatibility with toolbar formatting options\n\nExample MainContent component structure:\n```jsx\nimport { useEffect, useRef } from 'react';\nimport { Editor } from 'react-draft-wysiwyg';\nimport { useStore } from '../store/noteStore';\n\nconst MainContent = () => {\n  const { currentNote, updateNote } = useStore();\n  const titleRef = useRef(null);\n\n  useEffect(() => {\n    if (currentNote.isNew && titleRef.current) {\n      titleRef.current.focus();\n    }\n  }, [currentNote]);\n\n  return (\n    <div className=\"p-4 md:p-6 lg:p-8\">\n      <input\n        ref={titleRef}\n        className=\"text-2xl font-bold w-full mb-4\"\n        value={currentNote.title}\n        onChange={(e) => updateNote({ ...currentNote, title: e.target.value })}\n      />\n      <Editor\n        editorState={currentNote.content}\n        onEditorStateChange={(content) => updateNote({ ...currentNote, content })}\n        toolbar={{\n          options: ['inline', 'blockType', 'list', 'link', 'history'],\n          inline: { options: ['bold', 'italic', 'underline', 'strikethrough'] },\n        }}\n      />\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Unit test MainContent component rendering\n2. Verify auto-focus functionality for new notes\n3. Test scrolling behavior with long content\n4. Ensure responsive design on various screen sizes\n5. Validate rich text editing features\n6. Test keyboard shortcuts for formatting\n7. Verify integration with toolbar actions\n8. Test content state management and updates",
+        "priority": "high",
+        "dependencies": [
+          1,
+          2,
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement Auto-Save Functionality",
+        "description": "Create an automatic saving system with visual feedback and offline support.",
+        "details": "1. Implement auto-save logic in a custom hook (e.g., useAutoSave)\n2. Use debounce technique to trigger save after 2 seconds of inactivity\n3. Implement visual feedback for saving status (saving/saved)\n4. Use localStorage for offline support\n5. Implement conflict resolution based on timestamps\n6. Create a sync mechanism for when connection is restored\n7. Use Zustand to manage saving state\n\nExample useAutoSave hook:\n```jsx\nimport { useEffect, useRef } from 'react';\nimport { useStore } from '../store/noteStore';\n\nconst useAutoSave = (note, delay = 2000) => {\n  const { saveNote, setSaveStatus } = useStore();\n  const timerRef = useRef(null);\n\n  useEffect(() => {\n    const save = () => {\n      setSaveStatus('saving');\n      saveNote(note)\n        .then(() => setSaveStatus('saved'))\n        .catch(() => setSaveStatus('error'));\n    };\n\n    if (timerRef.current) clearTimeout(timerRef.current);\n    timerRef.current = setTimeout(save, delay);\n\n    return () => {\n      if (timerRef.current) clearTimeout(timerRef.current);\n    };\n  }, [note, delay, saveNote, setSaveStatus]);\n};\n```",
+        "testStrategy": "1. Unit test auto-save hook functionality\n2. Verify debounce behavior\n3. Test visual feedback for different saving states\n4. Validate offline saving and local storage usage\n5. Test conflict resolution with simulated concurrent edits\n6. Verify sync mechanism when connection is restored\n7. Perform end-to-end testing of the auto-save feature",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Implement Responsive Design and Accessibility",
+        "description": "Ensure the application is fully responsive and meets accessibility standards.",
+        "details": "1. Implement responsive design using Tailwind CSS\n   - Mobile-first approach (320px - 768px)\n   - Tablet support (768px - 1024px)\n   - Adaptive layout for larger screens\n2. Ensure all interactive elements have sufficient touch areas (minimum 44x44px)\n3. Implement keyboard navigation support\n   - Use tab index for logical navigation\n   - Implement keyboard shortcuts for common actions\n4. Add ARIA labels to all interactive elements\n5. Implement high contrast mode and ensure sufficient color contrast\n6. Add meaningful text alternatives for screen readers\n7. Test and optimize for various device sizes and orientations\n\nExample responsive component:\n```jsx\nimport { useMediaQuery } from 'react-responsive';\n\nconst ResponsiveLayout = ({ children }) => {\n  const isMobile = useMediaQuery({ maxWidth: 767 });\n  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });\n\n  return (\n    <div className={`\n      p-4 md:p-6 lg:p-8\n      ${isMobile ? 'text-sm' : isTablet ? 'text-base' : 'text-lg'}\n    `}>\n      {children}\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Test responsiveness on various devices and screen sizes\n2. Verify keyboard navigation and shortcuts\n3. Use accessibility tools (e.g., aXe, WAVE) to check for issues\n4. Test with screen readers to ensure proper information conveyance\n5. Verify color contrast ratios meet WCAG AA standards\n6. Perform usability testing with users relying on assistive technologies\n7. Validate touch target sizes on mobile devices",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Optimize Performance and User Experience",
+        "description": "Enhance the application's performance and overall user experience.",
+        "details": "1. Implement code splitting and lazy loading using React.lazy and Suspense\n2. Optimize component rendering using React.memo and useMemo\n3. Use Lighthouse to identify and fix performance issues\n4. Implement proper error boundaries and fallback UI\n5. Add loading skeletons for better perceived performance\n6. Optimize images and assets\n7. Implement service worker for offline capabilities and faster subsequent loads\n8. Use Web Vitals to monitor and improve Core Web Vitals\n\nExample performance optimization:\n```jsx\nimport React, { lazy, Suspense } from 'react';\n\nconst LazyComponent = lazy(() => import('./HeavyComponent'));\n\nconst OptimizedApp = () => (\n  <Suspense fallback={<div>Loading...</div>}>\n    <LazyComponent />\n  </Suspense>\n);\n\nexport default React.memo(OptimizedApp);\n```",
+        "testStrategy": "1. Conduct performance profiling using Chrome DevTools\n2. Run Lighthouse audits and address identified issues\n3. Measure and optimize Core Web Vitals (LCP, FID, CLS)\n4. Test application behavior under poor network conditions\n5. Verify offline functionality with service worker\n6. Conduct user testing to gather feedback on overall experience\n7. Perform A/B testing on critical user flows to optimize UX",
+        "priority": "low",
+        "dependencies": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-28T21:50:52.286Z",
+      "updated": "2025-06-28T22:01:43.994Z",
+      "description": "Tasks for layout-navigation context"
+    }
+  }
+}

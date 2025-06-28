@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { Note } from '@/lib/api';
+import { Note } from '@/types';
 import { Element, Text } from 'slate';
 
 interface NoteListProps {
