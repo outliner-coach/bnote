@@ -200,4 +200,6 @@ export default function NotePage({ params }: NotePageProps) {
       />
     </div>
   )
-} 
+}
+
+ 
