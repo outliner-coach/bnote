@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  basePath: '/bnote',
+  assetPrefix: '/bnote/',
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -8,6 +12,7 @@ const nextConfig = {
   },
   images: {
     domains: ['images.clerk.dev'],
+    unoptimized: true,
   },
 }
 
