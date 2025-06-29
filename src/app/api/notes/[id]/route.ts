@@ -7,7 +7,7 @@ import { Note, UpdateNoteRequest } from '@/types';
 // GET /api/notes/[id] - Get a specific note
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = auth();
@@ -18,9 +18,10 @@ export async function GET(
       );
     }
 
+    const { id } = await params;
     const db = await connectToDatabase();
     const note = await db.collection('notes').findOne({
-      _id: new ObjectId(params.id),
+      _id: new ObjectId(id),
       userId,
     });
 
@@ -54,7 +55,7 @@ export async function GET(
 // PUT /api/notes/[id] - Update a note
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = auth();
@@ -65,11 +66,12 @@ export async function PUT(
       );
     }
 
+    const { id } = await params;
     const data: UpdateNoteRequest = await request.json();
     const db = await connectToDatabase();
 
     const result = await db.collection('notes').findOneAndUpdate(
-      { _id: new ObjectId(params.id), userId },
+      { _id: new ObjectId(id), userId },
       {
         $set: {
           ...data,
@@ -109,7 +111,7 @@ export async function PUT(
 // DELETE /api/notes/[id] - Delete a note
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = auth();
@@ -120,9 +122,10 @@ export async function DELETE(
       );
     }
 
+    const { id } = await params;
     const db = await connectToDatabase();
     const result = await db.collection('notes').deleteOne({
-      _id: new ObjectId(params.id),
+      _id: new ObjectId(id),
       userId,
     });
 
